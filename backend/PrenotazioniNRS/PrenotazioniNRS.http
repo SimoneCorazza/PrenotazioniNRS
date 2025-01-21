@@ -1,0 +1,5 @@
+@host = http://localhost:5195
+
+DELETE {{host}}/api/v1/PuliziaSede/Rimuovimi/10
+Accept: application/json
+X-Nome-Utente: Simone
