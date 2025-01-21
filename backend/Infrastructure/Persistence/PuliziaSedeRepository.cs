@@ -18,19 +18,21 @@ namespace PrenotazioniNRS.Infrastructure.Persistence
             contestoDbContext.SaveChanges();
         }
 
+        public void Rimuovi(PuliziaSede puliziaSede)
+        {
+            contestoDbContext.PulizieSede.Remove(puliziaSede);
+            contestoDbContext.SaveChanges();
+        }
+
         public void Modifica(PuliziaSede puliziaSede)
         {
-            throw new NotImplementedException();
+            contestoDbContext.Entry(puliziaSede).State = EntityState.Modified;
+            contestoDbContext.SaveChanges();
         }
 
         public async Task<PuliziaSede?> Ottieni(int numeroSettimanaDallAnnoZero)
         {
             return await contestoDbContext.PulizieSede.SingleOrDefaultAsync(x => x.NumeroSettimanaDallAnnoZero == numeroSettimanaDallAnnoZero);
-        }
-
-        public void Rimuovi(int numeroSettimanaDallAnnoZero)
-        {
-            throw new NotImplementedException();
         }
     }
 }

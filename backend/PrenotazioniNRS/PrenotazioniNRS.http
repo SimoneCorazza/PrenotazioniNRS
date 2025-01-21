@@ -3,3 +3,9 @@
 DELETE {{host}}/api/v1/PuliziaSede/Rimuovimi/10
 Accept: application/json
 X-Nome-Utente: Simone
+
+###
+
+POST {{host}}/api/v1/PuliziaSede/Aggiungimi/10
+Accept: application/json
+X-Nome-Utente: Marco

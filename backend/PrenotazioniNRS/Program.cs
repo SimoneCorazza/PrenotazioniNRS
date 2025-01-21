@@ -10,7 +10,6 @@ string connectionString = builder.Configuration.GetValue<string>("Persistence:Co
 builder.Services.InizializzaPersistenzaContesto(connectionString);
 
 builder.Services.AddScoped<IPuliziaSedeRepository, PuliziaSedeRepository>();
-builder.Services.AddScoped<IPuliziaSedeFactory, PuliziaSedeFactory>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddAuthentication(Autenticazione.DefaultScheme)
@@ -32,7 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1");
         c.RoutePrefix = string.Empty;
     });
 }

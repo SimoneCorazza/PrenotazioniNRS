@@ -3,7 +3,6 @@ using PrenotazioniNRS.Domain;
 using PrenotazioniNRS.Domain.Sede;
 using PrenotazioniNRS.Domain.Sede.Pulizie;
 using PrenotazioniNRS.Infrastructure.Persistence.UnitOfWork;
-using System.Transactions;
 
 namespace PrenotazioniNRS.Api
 {
@@ -11,12 +10,12 @@ namespace PrenotazioniNRS.Api
     [Route("api/v1/[controller]/[action]")]
     public class PuliziaSedeController : ControllerBase
     {
-        private readonly IPuliziaSedeFactory puliziaSedeFactory;
+        private readonly IPuliziaSedeRepository puliziaSedeRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public PuliziaSedeController(IPuliziaSedeFactory puliziaSedeFactory, IUnitOfWork unitOfWork)
+        public PuliziaSedeController(IPuliziaSedeRepository puliziaSedeRepository, IUnitOfWork unitOfWork)
         {
-            this.puliziaSedeFactory = puliziaSedeFactory;
+            this.puliziaSedeRepository = puliziaSedeRepository;
             this.unitOfWork = unitOfWork;
         }
 
@@ -36,8 +35,22 @@ namespace PrenotazioniNRS.Api
 
             try
             {
-                var sede = await puliziaSedeFactory.Ottieni(numeroSettimana);
-                sede.AggiungiResponsabile(new Responsabile(nome));
+                var sede = await puliziaSedeRepository.Ottieni(numeroSettimana);
+                if (sede is null)
+                {
+                    return BadRequest("La pulizia della sede per la settimana specificata non esiste");
+                }
+
+                sede.RimuoviResponsabile(new Responsabile(nome));
+
+                if (sede.Responsabili.Count == 0)
+                {
+                    puliziaSedeRepository.Rimuovi(sede);
+                }
+                else
+                {
+                    puliziaSedeRepository.Modifica(sede);
+                }
 
                 await transaction.CommitAsync();
                 return Ok();
@@ -68,7 +81,42 @@ namespace PrenotazioniNRS.Api
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Aggiungimi(int numeroSettimana)
         {
-            return Ok();
+            var transaction = unitOfWork.Begin();
+
+            var nome = User.Claims.First(c => c.Type == "NomeUtente").Value;
+
+            try
+            {
+                var sedeOriginaria = await puliziaSedeRepository.Ottieni(numeroSettimana);
+                var sede = sedeOriginaria ?? new PuliziaSede(numeroSettimana);
+                sede.AggiungiResponsabile(new Responsabile(nome));
+
+                if (sedeOriginaria is null)
+                {
+                    puliziaSedeRepository.Aggiungi(sede);
+                }
+                else
+                {
+                    puliziaSedeRepository.Modifica(sede);
+                }
+
+                await transaction.CommitAsync();
+                return Ok();
+            }
+            catch (DomainException ex)
+            {
+                await transaction.RollbackAsync();
+                return BadRequest(ex.Message);
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+            finally
+            {
+                await transaction.DisposeAsync();
+            }
         }
     }
 }

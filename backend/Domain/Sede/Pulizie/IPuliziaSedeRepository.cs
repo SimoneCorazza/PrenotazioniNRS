@@ -4,7 +4,7 @@
     {
         void Aggiungi(PuliziaSede puliziaSede);
 
-        void Rimuovi(int numeroSettimanaDallAnnoZero);
+        void Rimuovi(PuliziaSede puliziaSede);
 
         void Modifica(PuliziaSede puliziaSede);
 

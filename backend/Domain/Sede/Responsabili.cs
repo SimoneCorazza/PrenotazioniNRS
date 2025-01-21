@@ -9,6 +9,8 @@ namespace PrenotazioniNRS.Domain.Sede
     {
         private readonly List<Responsabile> responsabili;
 
+        public int Count => responsabili.Count;
+
         /// <summary>
         ///     Inizializza l'elenco con una sequenza di responsabili
         /// </summary>
