@@ -9,3 +9,27 @@ X-Nome-Utente: Simone
 POST {{host}}/api/v1/PuliziaSede/Aggiungimi/10
 Accept: application/json
 X-Nome-Utente: Marco
+
+###
+
+POST {{host}}/api/v1/AttivitaOrdinaria/Aggiungimi/Apertura/2025-01-21
+Accept: application/json
+X-Nome-Utente: Simone3
+
+###
+
+POST {{host}}/api/v1/AttivitaOrdinaria/Aggiungimi/Chiusura/2025-01-21
+Accept: application/json
+X-Nome-Utente: Simone3
+
+###
+
+POST {{host}}/api/v1/AttivitaOrdinaria/Rimuovimi/Apertura/2025-01-21
+Accept: application/json
+X-Nome-Utente: Simone3
+
+###
+
+POST {{host}}/api/v1/AttivitaOrdinaria/Rimuovimi/Chiusura/2025-01-21
+Accept: application/json
+X-Nome-Utente: Simone

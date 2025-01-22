@@ -1,4 +1,4 @@
-﻿namespace PrenotazioniNRS.Domain.Sede
+﻿namespace PrenotazioniNRS.Domain.Sede.AtttivitaOrdinarie
 {
     public class AttivitaOrdinaria
     {
@@ -10,46 +10,40 @@
         /// <summary>
         ///     Responsabili dell'apertura della sede
         /// </summary>
-        public ICollection<Responsabile> ResponsabiliApertura { get; protected set; }
+        public Responsabili ResponsabiliApertura { get; protected set; }
 
         /// <summary>
         ///     Responsabili della chiusura della sede
         /// </summary>
-        public ICollection<Responsabile> ResponsabiliChiusura { get; protected set; }
+        public Responsabili ResponsabiliChiusura { get; protected set; }
 
         public AttivitaOrdinaria(DateOnly giorno)
         {
             Giorno = giorno;
-            ResponsabiliApertura = [];
-            ResponsabiliChiusura = [];
+            ResponsabiliApertura = new Responsabili();
+            ResponsabiliChiusura = new Responsabili();
 
             Valida();
         }
 
         public void AggiungiResponsabileChiusura(Responsabile responsabile)
         {
-            if (!ResponsabiliChiusura.Contains(responsabile))
-            {
-                ResponsabiliChiusura.Add(responsabile);
-            }
+            ResponsabiliChiusura.Aggiungi(responsabile);
         }
 
         public void RimuoviResponsabileChiusura(Responsabile responsabile)
         {
-            ResponsabiliChiusura.Remove(responsabile);
+            ResponsabiliChiusura.Rimuovi(responsabile);
         }
 
         public void AggiungiResponsabileAperura(Responsabile responsabile)
         {
-            if (!ResponsabiliApertura.Contains(responsabile))
-            {
-                ResponsabiliApertura.Add(responsabile);
-            }
+            ResponsabiliApertura.Aggiungi(responsabile);
         }
 
-        public bool RimuoviResponsabileAperura(Responsabile responsabile)
+        public void RimuoviResponsabileAperura(Responsabile responsabile)
         {
-            return ResponsabiliApertura.Remove(responsabile);
+            ResponsabiliApertura.Rimuovi(responsabile);
         }
 
         private void Valida()

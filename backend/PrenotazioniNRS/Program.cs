@@ -3,6 +3,7 @@ using PrenotazioniNRS.Auth;
 using PrenotazioniNRS.Domain.Sede.Pulizie;
 using System.Reflection;
 using PrenotazioniNRS.Infrastructure.Persistence.UnitOfWork;
+using PrenotazioniNRS.Domain.Sede.AtttivitaOrdinarie;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ string connectionString = builder.Configuration.GetValue<string>("Persistence:Co
 builder.Services.InizializzaPersistenzaContesto(connectionString);
 
 builder.Services.AddScoped<IPuliziaSedeRepository, PuliziaSedeRepository>();
+builder.Services.AddScoped<IAttivitaOrdinariaRepository, AttivitaOrdinariaRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddAuthentication(Autenticazione.DefaultScheme)
