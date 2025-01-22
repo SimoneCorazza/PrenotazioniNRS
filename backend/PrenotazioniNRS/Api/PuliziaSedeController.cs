@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PrenotazioniNRS.Domain;
 using PrenotazioniNRS.Domain.Sede;
 using PrenotazioniNRS.Domain.Sede.Pulizie;
 using PrenotazioniNRS.Infrastructure.Persistence.UnitOfWork;
@@ -8,15 +7,14 @@ namespace PrenotazioniNRS.Api
 {
     [ApiController]
     [Route("api/v1/[controller]/[action]")]
-    public class PuliziaSedeController : ControllerBase
+    public class PuliziaSedeController : ApiController
     {
         private readonly IPuliziaSedeRepository puliziaSedeRepository;
-        private readonly IUnitOfWork unitOfWork;
 
         public PuliziaSedeController(IPuliziaSedeRepository puliziaSedeRepository, IUnitOfWork unitOfWork)
+            : base(unitOfWork)
         {
             this.puliziaSedeRepository = puliziaSedeRepository;
-            this.unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -29,11 +27,7 @@ namespace PrenotazioniNRS.Api
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Rimuovimi(int numeroSettimana)
         {
-            var transaction = unitOfWork.Begin();
-
-            var nome = User.Claims.First(c => c.Type == "NomeUtente").Value;
-
-            try
+            return await ExecuteAsync(async () =>
             {
                 var sede = await puliziaSedeRepository.Ottieni(numeroSettimana);
                 if (sede is null)
@@ -41,7 +35,7 @@ namespace PrenotazioniNRS.Api
                     return BadRequest("La pulizia della sede per la settimana specificata non esiste");
                 }
 
-                sede.RimuoviResponsabile(new Responsabile(nome));
+                sede.RimuoviResponsabile(new Responsabile(NomeUtente));
 
                 if (sede.Responsabili.Count == 0)
                 {
@@ -52,23 +46,8 @@ namespace PrenotazioniNRS.Api
                     puliziaSedeRepository.Modifica(sede);
                 }
 
-                await transaction.CommitAsync();
                 return Ok();
-            }
-            catch (DomainException ex)
-            {
-                await transaction.RollbackAsync();
-                return BadRequest(ex.Message);
-            }
-            catch
-            {
-                await transaction.RollbackAsync();
-                throw;
-            }
-            finally
-            {
-                await transaction.DisposeAsync();
-            }
+            });
         }
 
         /// <summary>
@@ -81,15 +60,11 @@ namespace PrenotazioniNRS.Api
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Aggiungimi(int numeroSettimana)
         {
-            var transaction = unitOfWork.Begin();
-
-            var nome = User.Claims.First(c => c.Type == "NomeUtente").Value;
-
-            try
+            return await ExecuteAsync(async () =>
             {
                 var sedeOriginaria = await puliziaSedeRepository.Ottieni(numeroSettimana);
                 var sede = sedeOriginaria ?? new PuliziaSede(numeroSettimana);
-                sede.AggiungiResponsabile(new Responsabile(nome));
+                sede.AggiungiResponsabile(new Responsabile(NomeUtente));
 
                 if (sedeOriginaria is null)
                 {
@@ -100,23 +75,8 @@ namespace PrenotazioniNRS.Api
                     puliziaSedeRepository.Modifica(sede);
                 }
 
-                await transaction.CommitAsync();
                 return Ok();
-            }
-            catch (DomainException ex)
-            {
-                await transaction.RollbackAsync();
-                return BadRequest(ex.Message);
-            }
-            catch
-            {
-                await transaction.RollbackAsync();
-                throw;
-            }
-            finally
-            {
-                await transaction.DisposeAsync();
-            }
+            });
         }
     }
 }
