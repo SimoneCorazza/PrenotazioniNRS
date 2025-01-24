@@ -4,6 +4,7 @@ using PrenotazioniNRS.Domain.Sede.Pulizie;
 using System.Reflection;
 using PrenotazioniNRS.Infrastructure.Persistence.UnitOfWork;
 using PrenotazioniNRS.Domain.Sede.AtttivitaOrdinarie;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,13 @@ builder.Services.AddSwaggerGen(options =>
 {
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+
+    options.AddSecurityDefinition("Name_Header", new OpenApiSecurityScheme
+    {
+        Description = "Audenticazione tramite header 'X-Nome-Utente'",
+        In = ParameterLocation.Header,
+        Name = "X-Nome-Utente"
+    });
 });
 
 var app = builder.Build();

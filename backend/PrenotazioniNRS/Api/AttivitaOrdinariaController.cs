@@ -17,7 +17,10 @@ namespace PrenotazioniNRS.Api
             this.attivitaOrdinariaRepository = attivitaOrdinariaRepository;
         }
 
+        [HttpPost]
         [Route("{azione}/{giorno}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse))]
         public async Task<IActionResult> Aggiungimi(string azione, DateOnly giorno)
         {
             return await ExecuteAsync(async () =>
@@ -51,7 +54,10 @@ namespace PrenotazioniNRS.Api
             });
         }
 
+        [HttpDelete]
         [Route("{azione}/{giorno}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse))]
         public async Task<IActionResult> Rimuovimi(string azione, DateOnly giorno)
         {
             return await ExecuteAsync(async () =>

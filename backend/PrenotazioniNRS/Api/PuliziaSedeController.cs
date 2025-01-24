@@ -23,8 +23,8 @@ namespace PrenotazioniNRS.Api
         /// <param name="numeroSettimana">Numero della settimana da cui effettuare l'eliminazione</param>
         /// <returns>Esito dell'operazione</returns>
         [HttpDelete("{numeroSettimana}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse))]
         public async Task<IActionResult> Rimuovimi(int numeroSettimana)
         {
             return await ExecuteAsync(async () =>
@@ -56,8 +56,8 @@ namespace PrenotazioniNRS.Api
         /// <param name="numeroSettimana">Numero della settimana da cui effettuare l'eliminazione</param>
         /// <returns>Esito dell'operazione</returns>
         [HttpPost("{numeroSettimana}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse))]
         public async Task<IActionResult> Aggiungimi(int numeroSettimana)
         {
             return await ExecuteAsync(async () =>
