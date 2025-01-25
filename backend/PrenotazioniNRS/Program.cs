@@ -2,9 +2,9 @@ using PrenotazioniNRS.Infrastructure.Persistence;
 using PrenotazioniNRS.Auth;
 using PrenotazioniNRS.Domain.Sede.Pulizie;
 using System.Reflection;
-using PrenotazioniNRS.Infrastructure.Persistence.UnitOfWork;
 using PrenotazioniNRS.Domain.Sede.AtttivitaOrdinarie;
 using Microsoft.OpenApi.Models;
+using PrenotazioniNRS.Infrastructure.Persistence.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +43,13 @@ if (app.Environment.IsDevelopment())
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1");
         c.RoutePrefix = string.Empty;
+    });
+
+    app.UseCors(builder =>
+    {
+        builder.AllowAnyOrigin();
+        builder.AllowAnyMethod();
+        builder.AllowAnyHeader();
     });
 }
 
