@@ -34,5 +34,13 @@ namespace PrenotazioniNRS.Infrastructure.Persistence
             contestoDbContext.AttivitaOrdinarie.Remove(puliziaSede);
             contestoDbContext.SaveChanges();
         }
+
+        public async Task<ICollection<AttivitaOrdinaria>> Ottieni(DateOnly from, DateOnly to)
+        {
+            return await contestoDbContext.AttivitaOrdinarie
+                .Where(x => x.Giorno >= from && x.Giorno <= to)
+                .OrderBy(x => x.Giorno)
+                .ToArrayAsync();
+        }
     }
 }

@@ -9,5 +9,7 @@
         void Modifica(PuliziaSede puliziaSede);
 
         Task<PuliziaSede?> Ottieni(int numeroSettimanaDallAnnoZero);
+
+        Task<ICollection<PuliziaSede>> Ottieni(DateOnly from, DateOnly to);
     }
 }

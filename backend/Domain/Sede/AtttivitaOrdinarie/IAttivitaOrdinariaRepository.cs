@@ -9,5 +9,7 @@
         void Modifica(AttivitaOrdinaria puliziaSede);
 
         Task<AttivitaOrdinaria?> Ottieni(DateOnly giorno);
+
+        Task<ICollection<AttivitaOrdinaria>> Ottieni(DateOnly from, DateOnly to);
     }
 }
