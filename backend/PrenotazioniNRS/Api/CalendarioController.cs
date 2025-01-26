@@ -47,7 +47,8 @@ namespace PrenotazioniNRS.Api
                 }).ToArray(),
                 PulizieSede = pulizieSedi.Select(x => new PulizieSede
                 {
-                    NumeroSettimana = x.NumeroSettimanaDallAnnoZero,
+                    Anno = x.Anno,
+                    NumeroSettimana = x.NumeroSettimana,
                     Responsabili = x.Responsabili.Select(x => x.Nome).ToArray(),
                 }).ToArray(),
             });

@@ -20,16 +20,17 @@ namespace PrenotazioniNRS.Api
         /// <summary>
         ///     Rimuove il responsabile loggato della pulizia della sede per la settimana specificata
         /// </summary>
-        /// <param name="numeroSettimana">Numero della settimana da cui effettuare l'eliminazione</param>
+        /// <param name="anno">Anno</param>
+        /// <param name="numeroSettimana">Numero della settimana dell'anno</param>
         /// <returns>Esito dell'operazione</returns>
-        [HttpDelete("{numeroSettimana}")]
+        [HttpDelete("{anno}/{numeroSettimana}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse))]
-        public async Task<IActionResult> Rimuovimi(int numeroSettimana)
+        public async Task<IActionResult> Rimuovimi(int anno, int numeroSettimana)
         {
             return await ExecuteAsync(async () =>
             {
-                var sede = await puliziaSedeRepository.Ottieni(numeroSettimana);
+                var sede = await puliziaSedeRepository.Ottieni(anno, numeroSettimana);
                 if (sede is null)
                 {
                     return BadRequest("La pulizia della sede per la settimana specificata non esiste");
@@ -53,17 +54,18 @@ namespace PrenotazioniNRS.Api
         /// <summary>
         ///     Aggiunge il responsabile loggato alla pulizia della sede per la settimana specificata
         /// </summary>
-        /// <param name="numeroSettimana">Numero della settimana da cui effettuare l'eliminazione</param>
+        /// <param name="anno">Anno</param>
+        /// <param name="numeroSettimana">Numero della settimana dell'anno</param>
         /// <returns>Esito dell'operazione</returns>
-        [HttpPost("{numeroSettimana}")]
+        [HttpPost("{anno}/{numeroSettimana}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse))]
-        public async Task<IActionResult> Aggiungimi(int numeroSettimana)
+        public async Task<IActionResult> Aggiungimi(int anno, int numeroSettimana)
         {
             return await ExecuteAsync(async () =>
             {
-                var sedeOriginaria = await puliziaSedeRepository.Ottieni(numeroSettimana);
-                var sede = sedeOriginaria ?? new PuliziaSede(numeroSettimana);
+                var sedeOriginaria = await puliziaSedeRepository.Ottieni(anno, numeroSettimana);
+                var sede = sedeOriginaria ?? new PuliziaSede(anno, numeroSettimana);
                 sede.AggiungiResponsabile(new Responsabile(NomeUtente));
 
                 if (sedeOriginaria is null)

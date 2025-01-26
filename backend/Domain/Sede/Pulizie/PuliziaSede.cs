@@ -7,18 +7,24 @@
     public class PuliziaSede
     {
         /// <summary>
-        ///     Identificativo della settimana partendo dall'anno 0
+        ///     Anno di riferimento
         /// </summary>
-        public int NumeroSettimanaDallAnnoZero { get; protected set; }
+        public int Anno { get; protected set; }
+
+        /// <summary>
+        ///     Numero di settiamana dell'anno
+        /// </summary>
+        public int NumeroSettimana { get; protected set; }
 
         /// <summary>
         ///     Responsabili delle pulizie di questa settimana
         /// </summary>
         public Responsabili Responsabili { get; protected set; }
 
-        public PuliziaSede(int numeroSettimanaDallAnnoZero)
+        public PuliziaSede(int anno, int numeroSettimana)
         {
-            NumeroSettimanaDallAnnoZero = numeroSettimanaDallAnnoZero;
+            Anno = anno;
+            NumeroSettimana = numeroSettimana;
             Responsabili = new Responsabili();
 
             Valida();
@@ -46,9 +52,13 @@
 
         private void Valida()
         {
-            if (NumeroSettimanaDallAnnoZero < 0)
+            if (NumeroSettimana < 0 || NumeroSettimana > 53)
             {
                 throw new DomainException("Numero settimane errato");
+            }
+            else if (Anno < 0)
+            {
+                throw new DomainException("Anno errato");
             }
         }
     }

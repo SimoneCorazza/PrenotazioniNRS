@@ -8,10 +8,16 @@ namespace PrenotazioniNRS.Api.Responses.Calendario
     public class PulizieSede
     {
         /// <summary>
-        ///     Numero della settimana dall'anno zero
+        ///     Numero della settimana dell'anno di riferimento
         /// </summary>
         [Required]
         public int NumeroSettimana { get; set; }
+
+        /// <summary>
+        ///     Anno
+        /// </summary>
+        [Required]
+        public int Anno { get; set; }
 
         /// <summary>
         ///     Nomi dei responsabili che si occuperanno delle pulizie

@@ -30,9 +30,9 @@ namespace PrenotazioniNRS.Infrastructure.Persistence
             contestoDbContext.SaveChanges();
         }
 
-        public async Task<PuliziaSede?> Ottieni(int numeroSettimanaDallAnnoZero)
+        public async Task<PuliziaSede?> Ottieni(int anno, int numeroSettimana)
         {
-            return await contestoDbContext.PulizieSede.SingleOrDefaultAsync(x => x.NumeroSettimanaDallAnnoZero == numeroSettimanaDallAnnoZero);
+            return await contestoDbContext.PulizieSede.SingleOrDefaultAsync(x => x.Anno == anno && x.NumeroSettimana == numeroSettimana);
         }
 
         public async Task<ICollection<PuliziaSede>> Ottieni(DateOnly from, DateOnly to)
@@ -41,8 +41,9 @@ namespace PrenotazioniNRS.Infrastructure.Persistence
             int toWeek = GetWeekOfYear(to);
 
             return await contestoDbContext.PulizieSede
-                .Where(x => x.NumeroSettimanaDallAnnoZero >= fromWeek && x.NumeroSettimanaDallAnnoZero <= toWeek)
-                .OrderBy(x => x.NumeroSettimanaDallAnnoZero)
+                .Where(x => x.Anno >= from.Year && x.Anno <= to.Year && x.NumeroSettimana >= fromWeek && x.NumeroSettimana <= toWeek)
+                .OrderBy(x => x.Anno)
+                .ThenBy(x => x.NumeroSettimana)
                 .ToArrayAsync();
         }
         public static int GetWeekOfYear(DateOnly date)

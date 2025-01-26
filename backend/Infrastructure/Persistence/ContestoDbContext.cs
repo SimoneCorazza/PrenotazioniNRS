@@ -19,8 +19,10 @@
         {
             var pulizieSede = modelBuilder.Entity<PuliziaSede>();
 
-            pulizieSede.HasKey(x => x.NumeroSettimanaDallAnnoZero);
-            pulizieSede.Property(x => x.NumeroSettimanaDallAnnoZero)
+            pulizieSede.HasKey(x => new { x.NumeroSettimana, x.Anno });
+            pulizieSede.Property(x => x.NumeroSettimana)
+                .ValueGeneratedNever();
+            pulizieSede.Property(x => x.Anno)
                 .ValueGeneratedNever();
 
             pulizieSede.Property(x => x.Responsabili)

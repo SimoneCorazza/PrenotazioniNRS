@@ -8,7 +8,7 @@
 
         void Modifica(PuliziaSede puliziaSede);
 
-        Task<PuliziaSede?> Ottieni(int numeroSettimanaDallAnnoZero);
+        Task<PuliziaSede?> Ottieni(int anno, int numeroSettimana);
 
         Task<ICollection<PuliziaSede>> Ottieni(DateOnly from, DateOnly to);
     }

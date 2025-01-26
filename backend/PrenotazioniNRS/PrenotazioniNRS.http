@@ -1,12 +1,12 @@
 @host = http://localhost:5195
 
-DELETE {{host}}/api/v1/PuliziaSede/Rimuovimi/10
+DELETE {{host}}/api/v1/PuliziaSede/Rimuovimi/2025/10
 Accept: application/json
 X-Nome-Utente: Simone
 
 ###
 
-POST {{host}}/api/v1/PuliziaSede/Aggiungimi/10
+POST {{host}}/api/v1/PuliziaSede/Aggiungimi/2025/10
 Accept: application/json
 X-Nome-Utente: Marco
 
