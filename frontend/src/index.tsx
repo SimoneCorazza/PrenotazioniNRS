@@ -1,9 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom/client";
+import App from './App';
+import { Settings } from 'luxon';
 
-ReactDOM.render(
+Settings.defaultLocale = "it";
+
+const rootElement = document.getElementById("root") as HTMLElement;
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
   <React.StrictMode>
-    <div>Bello</div>
-  </React.StrictMode>,
-  document.getElementById('root'),
+    <App/>
+  </React.StrictMode>
 );

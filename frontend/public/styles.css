@@ -1,0 +1,24 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.calendario, .calendario-error, .calendario-loading {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.settimana {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.settimana-giorno {
+    font-size: 10px;
+    color: gray;
+    width: 14.28%;
+    height: 70px;
+}
+
+.settimana-giorno-numero {
+}
