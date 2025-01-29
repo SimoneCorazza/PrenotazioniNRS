@@ -1,24 +1,69 @@
-body {
-    font-family: 'Roboto', sans-serif;
+@property --divisione-calendario-colore {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #c2c2c2;
 }
 
-.calendario, .calendario-error, .calendario-loading {
+body {
+    font-family: 'Roboto', sans-serif;
     max-width: 800px;
     margin: 0 auto;
+}
+
+.calendario-header {
+    display: flex;
+    justify-content: space-between;
+    color: gray;
+    font-size: 12px;
+}
+
+.calendario-header-giorno {
+    width: 14.28%;
+    text-align: center;
 }
 
 .settimana {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--divisione-calendario-colore);
+}
+
+.settimana:first-child {
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: var(--divisione-calendario-colore);
+}
+
+.settimana.corrente {
+    background-color: #ececec;
 }
 
 .settimana-giorno {
     font-size: 10px;
     color: gray;
     width: 14.28%;
-    height: 70px;
+    height: 100px;
+
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: var(--divisione-calendario-colore);
+}
+
+.settimana-giorno:last-child {
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: var(--divisione-calendario-colore);
 }
 
 .settimana-giorno-numero {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.settimana-giorno-numero.corrente {
+    font-weight: bold;
+    color: blue;
 }

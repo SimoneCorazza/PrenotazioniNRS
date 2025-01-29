@@ -11,6 +11,8 @@ const Calendario: React.FC = () => {
 	const [from, setFrom] = useState(DateTime.local().startOf('week').plus({ weeks: -1 }));
 	const [to, setTo] = useState(from.plus({ weeks: 10 }));
 
+	const oggi = useMemo(() => DateTime.local(), []);
+
 	const giorni = useMemo(() => {
 		const g: DateTime[] = [];
 
@@ -70,7 +72,18 @@ const Calendario: React.FC = () => {
 
 	return (
 		<div className='calendario'>
-			{giorni.map(g => (<Settimana 
+			<div className='calendario-header'>
+				<div className='calendario-header-giorno'>L</div>
+				<div className='calendario-header-giorno'>M</div>
+				<div className='calendario-header-giorno'>M</div>
+				<div className='calendario-header-giorno'>G</div>
+				<div className='calendario-header-giorno'>V</div>
+				<div className='calendario-header-giorno'>S</div>
+				<div className='calendario-header-giorno'>D</div>
+			</div>
+			{giorni.map(g => (<Settimana
+				key={g.year + "-" + g.weekNumber}
+				oggi={oggi}
 				lunedi={g}
 				attivitaOrdinarie={dati?.apertureOrdinarie!}
 				puliziaSede={dati?.pulizieSede?.find(x => x.numeroSettimana === g.weekNumber && x.anno === g.year)}
