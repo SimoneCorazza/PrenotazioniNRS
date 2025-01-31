@@ -63,9 +63,14 @@ body {
     margin-top: 5px;
 }
 
-.settimana-giorno-numero.corrente {
+.settimana-giorno-numero.corrente > span {
     font-weight: bold;
-    color: blue;
+    background-color: rgb(249, 208, 155);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    align-content: center;
 }
 
 .attivita {
