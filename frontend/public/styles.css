@@ -45,7 +45,7 @@ body {
     font-size: 10px;
     color: gray;
     width: 14.28%;
-    height: 100px;
+    height: 160px;
 
     border-left-style: solid;
     border-left-width: 1px;
@@ -66,4 +66,30 @@ body {
 .settimana-giorno-numero.corrente {
     font-weight: bold;
     color: blue;
+}
+
+.attivita {
+    margin: 10px 3px 3px 3px;
+}
+
+.attivita-icona {
+    text-align: center;
+}
+
+.pulizie {
+    margin: 20px 3px 3px 3px;
+}
+
+.pulizie-icona {
+    text-align: center;
+}
+
+.responsabile {
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align: center;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }

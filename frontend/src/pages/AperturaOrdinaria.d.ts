@@ -1,7 +1,5 @@
-import { DateTime } from "luxon";
-
 interface AperturaOrdinaria {
-    giorno: DateTime;
+    giorno: string;
     responsabiliApertura: string[];
     responsabiliChiusura: string[];
 }

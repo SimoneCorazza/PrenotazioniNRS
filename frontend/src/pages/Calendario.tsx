@@ -85,7 +85,7 @@ const Calendario: React.FC = () => {
 				key={g.year + "-" + g.weekNumber}
 				oggi={oggi}
 				lunedi={g}
-				attivitaOrdinarie={dati?.apertureOrdinarie!}
+				attivitaOrdinarie={dati?.apertureOrdinarie || []}
 				puliziaSede={dati?.pulizieSede?.find(x => x.numeroSettimana === g.weekNumber && x.anno === g.year)}
 				/>))}
 			
