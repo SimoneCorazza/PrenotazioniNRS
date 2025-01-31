@@ -16,7 +16,7 @@ const Pulizie: React.FC<PulizieProps> = ({responsabiliPuliziaSede}) =>
     (
         <div className='pulizie'>
             <div className='pulizie-icona'>{SvgClean}</div>
-            <Responsabili responsabili={responsabiliPuliziaSede} />
+            <Responsabili responsabili={responsabiliPuliziaSede} limite={3} />
         </div>
     );
 

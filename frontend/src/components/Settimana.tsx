@@ -49,7 +49,9 @@ const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, 
         <div className={'settimana' + (isSettimanaCorrente ? ' corrente' : '')}>
             {giorni.map(d => 
                 <div key={d.data.toISODate()} className='settimana-giorno'>
-                    <div className={'settimana-giorno-numero' + (d.isGiornoCorrente ? ' corrente' : '')}>{d.data.toFormat('dd')}</div>
+                    <div className={'settimana-giorno-numero' + (d.isGiornoCorrente ? ' corrente' : '')}>
+                        <span>{d.data.toFormat('dd')}</span>
+                    </div>
                     {renderGiorno(d)}
                 </div>)}
         </div>

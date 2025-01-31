@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Responsabili from './Responsabili';
 
 interface AttivitaPros {
@@ -83,9 +83,9 @@ const Attivita: React.FC<AttivitaPros> = ({responsabiliApertura, responsabiliChi
     return (
         <div className='attivita'>
             <div className='attivita-icona'>{SvgApertura}</div>
-            <Responsabili responsabili={responsabiliApertura} limite={3} />
+            <Responsabili responsabili={responsabiliApertura} limite={2} />
             <div className='attivita-icona'>{SvgChiusura}</div>
-            <Responsabili responsabili={responsabiliChiusura} limite={3} />
+            <Responsabili responsabili={responsabiliChiusura} limite={2} />
         </div>
     );
 };
