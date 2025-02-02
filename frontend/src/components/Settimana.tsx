@@ -41,7 +41,7 @@ const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, 
     const renderGiorno = useCallback((d: Giorno) => {
         if (d.data.weekday === 7) {
             return <Pulizie responsabiliPuliziaSede={puliziaSede?.responsabili || []} />
-        } else if(d.responsabiliAperura.length > 0 && d.responsabiliChiusura.length > 0) {
+        } else if(d.responsabiliAperura.length > 0 || d.responsabiliChiusura.length > 0) {
             return <Attivita
                 responsabiliApertura={d.responsabiliAperura}
                 responsabiliChiusura={d.responsabiliChiusura}/>;

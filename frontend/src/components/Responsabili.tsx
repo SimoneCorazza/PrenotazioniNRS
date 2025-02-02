@@ -10,8 +10,8 @@ interface ResponsabiliProps {
  * Mostra i responsabili
  */
 const Responsabili: React.FC<ResponsabiliProps> = ({ responsabili, limite }) => {
-    if (!responsabili) {
-        return <></>;
+    if (!responsabili || responsabili.length === 0) {
+        return <div className='responsabile'>-</div>;
     } else if (!!limite && responsabili.length > limite) {
         return (<>
             {responsabili.slice(0, limite - 1).map(x => <div key={x} className='responsabile'>{x}</div>)}
