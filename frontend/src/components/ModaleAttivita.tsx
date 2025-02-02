@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Button, Modal } from 'antd';
 import { DateTime } from 'luxon';
 import AperturaIcon from './icons/Apertura';
 import ChiusuraIcon from './icons/Chiusura';
+import { getNomeUtente } from 'src/storage';
 
 interface ModaleAttivitaProps {
     responsabiliApertura: string[];
@@ -12,6 +13,23 @@ interface ModaleAttivitaProps {
 }
 
 const ModaleAttivita: React.FC<ModaleAttivitaProps> = ({ responsabiliApertura, responsabiliChiusura, giorno, onCancel }) => {
+    const sonoResponsabileDellaChiusura = useMemo(() => responsabiliChiusura.indexOf(getNomeUtente() || '') !== -1, [responsabiliChiusura]);
+    const sonoResponsabileDellaApertura = useMemo(() => responsabiliApertura.indexOf(getNomeUtente() || '') !== -1, [responsabiliApertura]);
+    
+    let bottoneApertura: JSX.Element;
+    if (sonoResponsabileDellaApertura) {
+        bottoneApertura = <Button variant='solid' color='danger'>Non apro io</Button>;
+    } else {
+        bottoneApertura = <Button variant='solid' type='primary'>Apro io</Button>;
+    }
+
+    let bottoneChiusura: JSX.Element;
+    if (sonoResponsabileDellaChiusura) {
+        bottoneChiusura = <Button variant='solid' color='danger'>Non chiudo io</Button>;
+    } else {
+        bottoneChiusura = <Button variant='solid' type='primary'>Chiudo io</Button>;
+    }
+
     return (
         <Modal
             open={giorno !== null}
@@ -30,8 +48,8 @@ const ModaleAttivita: React.FC<ModaleAttivitaProps> = ({ responsabiliApertura, r
                 </div>
             </div>
             <div className='modale-bottoni'>
-                <div><Button type='primary'>Apro io</Button></div>
-                <div><Button type='primary'>Chiudo io</Button></div>
+                <div>{bottoneApertura}</div>
+                <div>{bottoneChiusura}</div>
             </div>
         </Modal>
     );
