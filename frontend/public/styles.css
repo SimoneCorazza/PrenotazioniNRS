@@ -8,6 +8,7 @@ body {
     font-family: 'Roboto', sans-serif;
     max-width: 800px;
     margin: 0 auto;
+    user-select: none;
 }
 
 .calendario-header {
@@ -97,4 +98,23 @@ body {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.modale-attivita {
+    display: flex;
+}
+
+.modale-attivita > div {
+    width: 50%;
+    text-align: center;
+}
+
+.modale-bottoni {
+    display: flex;
+    margin-top: 30px;
+}
+
+.modale-bottoni > div {
+    width: 50%;
+    text-align: center;
 }
