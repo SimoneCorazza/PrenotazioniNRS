@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon';
 import React, { MouseEventHandler, useCallback, useMemo, useState } from 'react';
-import AperturaOrdinaria from 'src/pages/AperturaOrdinaria';
-import PuliziaSede from 'src/pages/PuliziaSede';
 import Attivita from './Attivita';
 import Pulizie from './Pulizie';
 import ModaleAttivita from './ModaleAttivita';
+import AperturaOrdinaria from 'src/api/AperturaOrdinaria';
+import PuliziaSede from 'src/api/PuliziaSede';
 
 interface SettimanaProps {
     lunedi: DateTime;

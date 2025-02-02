@@ -1,9 +1,9 @@
-import axios from 'axios';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Spin } from 'antd';
 import Settimana from 'src/components/Settimana';
 import { DateTime } from 'luxon';
-import CalendarioType from './Calendario.d';
+import CalendarioType from '../api/Calendario';
+import { fetchCalendario } from '../api'
 
 const Calendario: React.FC = () => {
 	const [dati, setDati] = useState<CalendarioType | null>(null);
@@ -24,28 +24,9 @@ const Calendario: React.FC = () => {
 		return g;
 	}, [from, to]);
 
-	const fetchData = useCallback(async (from: DateTime, to: DateTime): Promise<CalendarioType | Error> => {
-		try {
-			const r = await axios.get<CalendarioType>('http://localhost:5195/api/v1/Calendario', {
-				headers: {
-					'Content-Type': 'application/json',
-					"X-Nome-Utente": "MarioRossi",
-				},
-				params: {
-					from: from.toISODate(),
-					to: to.toISODate(),
-				}
-			});
-			return r.data;
-		} catch (error) {
-			setErrore(true);
-			return Error('Errore');
-		}
-	}, []);
-
 	useEffect(() => {
 		async function fetchMyAPI() {
-			const res = await fetchData(from, to);
+			const res = await fetchCalendario(from, to);
 			if (res instanceof Error) {
 				setErrore(true);
 			} else {
@@ -54,7 +35,7 @@ const Calendario: React.FC = () => {
 		}
 
 		fetchMyAPI();
-	}, [fetchData, from, to]);
+	}, [from, to]);
 
 
 	if (!dati && !errore) {
