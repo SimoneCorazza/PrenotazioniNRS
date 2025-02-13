@@ -33,7 +33,7 @@ namespace PrenotazioniNRS.Api
                 var sede = await puliziaSedeRepository.Ottieni(anno, numeroSettimana);
                 if (sede is null)
                 {
-                    return BadRequest("La pulizia della sede per la settimana specificata non esiste");
+                    return BadRequest(new ApiResponse("La pulizia della sede per la settimana specificata non esiste"));
                 }
 
                 sede.RimuoviResponsabile(new Responsabile(NomeUtente));
@@ -47,7 +47,7 @@ namespace PrenotazioniNRS.Api
                     puliziaSedeRepository.Modifica(sede);
                 }
 
-                return Ok();
+                return Ok(new ApiResponse());
             });
         }
 
@@ -77,7 +77,7 @@ namespace PrenotazioniNRS.Api
                     puliziaSedeRepository.Modifica(sede);
                 }
 
-                return Ok();
+                return Ok(new ApiResponse());
             });
         }
     }

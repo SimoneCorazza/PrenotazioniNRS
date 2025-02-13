@@ -38,7 +38,7 @@ namespace PrenotazioniNRS.Api
                 }
                 else
                 {
-                    return BadRequest("Azione non valida");
+                    return BadRequest(new ApiResponse("Azione non valida"));
                 }
 
                 if (valoreADb is null)
@@ -50,7 +50,7 @@ namespace PrenotazioniNRS.Api
                     attivitaOrdinariaRepository.Modifica(valore);
                 }
 
-                return Ok();
+                return Ok(new ApiResponse());
             });
         }
 
@@ -65,7 +65,7 @@ namespace PrenotazioniNRS.Api
                 var valore = await attivitaOrdinariaRepository.Ottieni(giorno);
                 if (valore is null)
                 {
-                    return BadRequest("Attività ordinaria non presente");
+                    return BadRequest(new ApiResponse("Attività ordinaria non presente"));
                 }
 
                 if (azione.Equals("apertura", StringComparison.CurrentCultureIgnoreCase))
@@ -78,7 +78,7 @@ namespace PrenotazioniNRS.Api
                 }
                 else
                 {
-                    return BadRequest("Azione non valida");
+                    return BadRequest(new ApiResponse("Azione non valida"));
                 }
 
                 if (valore.ResponsabiliChiusura.Count == 0 && valore.ResponsabiliApertura.Count == 0)
@@ -90,7 +90,7 @@ namespace PrenotazioniNRS.Api
                     attivitaOrdinariaRepository.Modifica(valore);
                 }
 
-                return Ok();
+                return Ok(new ApiResponse());
             });
         }
     }

@@ -32,7 +32,7 @@ namespace PrenotazioniNRS.Api
             catch (DomainException ex)
             {
                 await transaction.RollbackAsync();
-                return BadRequest(ex.Message);
+                return BadRequest(new ApiResponse(ex.Message));
             }
             catch
             {
