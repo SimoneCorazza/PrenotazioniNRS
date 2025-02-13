@@ -72,7 +72,7 @@ const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, 
             responsabiliChiusura={g?.responsabiliChiusura || []}
             giorno={giornoSelezionato}
             onCancel={onModaleChiusa}/>;
-    }, [giornoSelezionato, giorni])
+    }, [giornoSelezionato, giorni, onModaleChiusa])
 
     return (
         <div className={'settimana' + (isSettimanaCorrente ? ' corrente' : '')}>

@@ -1,0 +1,3 @@
+interface ApiResponse {
+    Errori: string[];
+}

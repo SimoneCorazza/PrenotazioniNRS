@@ -26,11 +26,12 @@ const Calendario: React.FC = () => {
 
 	useEffect(() => {
 		async function fetchMyAPI() {
-			const res = await fetchCalendario(from, to);
-			if (res instanceof Error) {
-				setErrore(true);
-			} else {
+			try {
+				const res = await fetchCalendario(from, to);
 				setDati(res);
+			}
+			catch {
+				setErrore(true);
 			}
 		}
 

@@ -20,32 +20,32 @@ instance.interceptors.request.use(
  * @param to Data finale
  * @returns Calendario risultate o errore
  */
-export const fetchCalendario = async (from: DateTime, to: DateTime): Promise<Calendario | Error> => {
-    try {
-        const r = await instance.get<Calendario>('/api/v1/Calendario', {
-            params: {
-                from: from.toISODate(),
-                to: to.toISODate(),
-            }
-        });
-        return r.data;
-    } catch (error) {
-        return Error('Errore');
-    }
+export const fetchCalendario = async (from: DateTime, to: DateTime): Promise<Calendario> => {
+    const r = await instance.get<Calendario>('/api/v1/Calendario', {
+        params: {
+            from: from.toISODate(),
+            to: to.toISODate(),
+        }
+    });
+    return r.data;
 }
 
-export const postAproIo = async (data: DateTime) : Promise<void> =>  {
-    return await instance.post(`/api/v1/AttivitaOrdinaria/Aggiungimi/Apertura/${data.toFormat("yyyy-MM-dd")}`);
+export const postAproIo = async (data: DateTime) : Promise<ApiResponse> =>  {
+    const r = await instance.post<ApiResponse>(`/api/v1/AttivitaOrdinaria/Aggiungimi/Apertura/${data.toFormat("yyyy-MM-dd")}`);
+    return r.data;
 }
 
-export const postChiudoIo = async (data: DateTime) : Promise<void> =>  {
-    return await instance.post(`/api/v1/AttivitaOrdinaria/Aggiungimi/Chiusura/${data.toFormat("yyyy-MM-dd")}`);
+export const postChiudoIo = async (data: DateTime) : Promise<ApiResponse> =>  {
+    const r =  await instance.post<ApiResponse>(`/api/v1/AttivitaOrdinaria/Aggiungimi/Chiusura/${data.toFormat("yyyy-MM-dd")}`);
+    return r.data;
 }
 
-export const postNonAproIo = async (data: DateTime) : Promise<void> =>  {
-    return await instance.delete(`/api/v1/AttivitaOrdinaria/Rimuovimi/Apertura/${data.toFormat("yyyy-MM-dd")}`);
+export const postNonAproIo = async (data: DateTime) : Promise<ApiResponse> =>  {
+    const r =  await instance.delete<ApiResponse>(`/api/v1/AttivitaOrdinaria/Rimuovimi/Apertura/${data.toFormat("yyyy-MM-dd")}`);
+    return r.data;
 }
 
-export const postNonChiudoIo = async (data: DateTime) : Promise<void> =>  {
-    return await instance.delete(`/api/v1/AttivitaOrdinaria/Rimuovimi/Chiusura/${data.toFormat("yyyy-MM-dd")}`);
+export const postNonChiudoIo = async (data: DateTime) : Promise<ApiResponse> =>  {
+    const r =  await instance.delete<ApiResponse>(`/api/v1/AttivitaOrdinaria/Rimuovimi/Chiusura/${data.toFormat("yyyy-MM-dd")}`);
+    return r.data;
 }
