@@ -36,6 +36,7 @@ const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, 
             isGiornoAttivitaOrdinaria: d.weekday === 2 || d.weekday === 5,
         };
     }), [attivitaOrdinarie, lunedi, oggi]);
+
     const isSettimanaCorrente = useMemo(() => lunedi.weekNumber === oggi.weekNumber && lunedi.year === oggi.year, [lunedi, oggi]);
 
     const renderGiorno = useCallback((d: Giorno) => {
@@ -58,6 +59,8 @@ const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, 
         return () => setGiornoSelezionato(g.data);
     }, []);
 
+    const onModaleChiusa = useCallback(() => setGiornoSelezionato(null), [setGiornoSelezionato]);
+
     const modale = useMemo(() => {
         if (!giornoSelezionato) {
             return <></>;
@@ -68,7 +71,7 @@ const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, 
             responsabiliApertura={g?.responsabiliAperura || []}
             responsabiliChiusura={g?.responsabiliChiusura || []}
             giorno={giornoSelezionato}
-            onCancel={() => setGiornoSelezionato(null)} />;
+            onCancel={onModaleChiusa}/>;
     }, [giornoSelezionato, giorni])
 
     return (
