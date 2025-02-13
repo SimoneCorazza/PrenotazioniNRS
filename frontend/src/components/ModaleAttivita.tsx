@@ -16,23 +16,27 @@ interface ModaleAttivitaProps {
 const ModaleAttivita: React.FC<ModaleAttivitaProps> = ({ responsabiliApertura, responsabiliChiusura, giorno, onCancel }) => {
     const sonoResponsabileDellaChiusura = useMemo(() => responsabiliChiusura.indexOf(getNomeUtente() || '') !== -1, [responsabiliChiusura]);
     const sonoResponsabileDellaApertura = useMemo(() => responsabiliApertura.indexOf(getNomeUtente() || '') !== -1, [responsabiliApertura]);
+    const onUpdate = useCallback(() => {
+        //TODO: chiamare e fare singola chiamata onCancel();
+        window.location.reload();
+    }, []);
 
     const onAproIo = useCallback(async () => {
         await postAproIo(giorno);
-        onCancel();
-    }, [giorno, onCancel]);
+        onUpdate();
+    }, [giorno, onUpdate]);
     const onChiudoIo = useCallback(async () => {
         await postChiudoIo(giorno);
-        onCancel();
-    }, [giorno, onCancel]);
+        onUpdate();
+    }, [giorno, onUpdate]);
     const onNonAproIo = useCallback(async () => {
         await postNonAproIo(giorno);
-        onCancel();
-    }, [giorno, onCancel]);
+        onUpdate();
+    }, [giorno, onUpdate]);
     const onNonChiudoIo = useCallback(async () => {
         await postNonChiudoIo(giorno);
-        onCancel();
-    }, [giorno, onCancel]);
+        onUpdate();
+    }, [giorno, onUpdate]);
     
     
     let bottoneApertura: JSX.Element;
