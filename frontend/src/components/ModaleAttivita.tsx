@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Button, Modal } from 'antd';
 import { DateTime } from 'luxon';
 import AperturaIcon from './icons/Apertura';
 import ChiusuraIcon from './icons/Chiusura';
 import { getNomeUtente } from 'src/storage';
+import { postAproIo, postChiudoIo, postNonAproIo, postNonChiudoIo } from 'src/api';
 
 interface ModaleAttivitaProps {
     responsabiliApertura: string[];
@@ -15,19 +16,37 @@ interface ModaleAttivitaProps {
 const ModaleAttivita: React.FC<ModaleAttivitaProps> = ({ responsabiliApertura, responsabiliChiusura, giorno, onCancel }) => {
     const sonoResponsabileDellaChiusura = useMemo(() => responsabiliChiusura.indexOf(getNomeUtente() || '') !== -1, [responsabiliChiusura]);
     const sonoResponsabileDellaApertura = useMemo(() => responsabiliApertura.indexOf(getNomeUtente() || '') !== -1, [responsabiliApertura]);
+
+    const onAproIo = useCallback(async () => {
+        await postAproIo(giorno);
+        onCancel();
+    }, [giorno, onCancel]);
+    const onChiudoIo = useCallback(async () => {
+        await postChiudoIo(giorno);
+        onCancel();
+    }, [giorno, onCancel]);
+    const onNonAproIo = useCallback(async () => {
+        await postNonAproIo(giorno);
+        onCancel();
+    }, [giorno, onCancel]);
+    const onNonChiudoIo = useCallback(async () => {
+        await postNonChiudoIo(giorno);
+        onCancel();
+    }, [giorno, onCancel]);
+    
     
     let bottoneApertura: JSX.Element;
     if (sonoResponsabileDellaApertura) {
-        bottoneApertura = <Button variant='solid' color='danger'>Non apro io</Button>;
+        bottoneApertura = <Button variant='solid' color='danger' onClick={onNonAproIo}>Non apro io</Button>;
     } else {
-        bottoneApertura = <Button variant='solid' type='primary'>Apro io</Button>;
+        bottoneApertura = <Button variant='solid' type='primary' onClick={onAproIo}>Apro io</Button>;
     }
 
     let bottoneChiusura: JSX.Element;
     if (sonoResponsabileDellaChiusura) {
-        bottoneChiusura = <Button variant='solid' color='danger'>Non chiudo io</Button>;
+        bottoneChiusura = <Button variant='solid' color='danger' onClick={onNonChiudoIo}>Non chiudo io</Button>;
     } else {
-        bottoneChiusura = <Button variant='solid' type='primary'>Chiudo io</Button>;
+        bottoneChiusura = <Button variant='solid' type='primary' onClick={onChiudoIo}>Chiudo io</Button>;
     }
 
     return (
