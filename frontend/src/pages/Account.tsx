@@ -21,8 +21,8 @@ const Account: React.FC<AccountProps> = ({ nomeImpostato }) => {
 
     return (
         <div className='account-input'>
-            <div>
-                <Typography>Inserisci il tuo nome:</Typography>
+            <Typography>Inserisci il tuo nome:</Typography>
+            <div style={{ margin: "auto" }}>
                 <Input
                     value={nomeUtente}
                     onPressEnter={onSubmit}

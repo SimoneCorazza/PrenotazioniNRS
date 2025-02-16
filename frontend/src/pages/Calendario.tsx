@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Spin } from 'antd';
+import { Spin, Typography } from 'antd';
 import Settimana from 'src/components/Settimana';
 import { DateTime } from 'luxon';
 import CalendarioType from '../api/Calendario';
@@ -48,8 +48,7 @@ const Calendario: React.FC = () => {
 	} else if (errore) {
 		return (
 			<div className='calendario-error'>
-				<h1>Calendario</h1>
-				<p>Si è verificato un errore.</p>
+				<Typography>Si è verificato un errore nella comunicazione con il server. Assicurarsi di essere connessi ad internet e riprovare</Typography>
 			</div>
 		);
 	}
