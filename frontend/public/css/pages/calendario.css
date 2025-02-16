@@ -1,4 +1,9 @@
 .calendario-header {
+    position: sticky;
+    top: 0;
+
+    background-color: var(--calendario-header-colore);
+    
     display: flex;
     justify-content: space-between;
     color: var(--calendario-testo-colore);

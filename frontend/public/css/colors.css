@@ -15,3 +15,9 @@
     inherits: false;
     initial-value: #757575;
 }
+
+@property --calendario-header-colore {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: white;
+}
