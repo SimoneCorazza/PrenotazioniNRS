@@ -64,7 +64,7 @@ const ModalePulizie: React.FC<ModalePulizieProps> = ({ lunedi, responsabili, onC
 
         <div className='modale-pulizie'>
             <div>
-                <div>{CleanIcon}</div>
+                <div className=''>{CleanIcon}</div>
                 {!responsabili || responsabili.length === 0 ? <div>nessuno</div> : responsabili.map(x => <div key={x}>{x}</div>)}
             </div>
         </div>
