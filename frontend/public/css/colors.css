@@ -21,3 +21,21 @@
     inherits: false;
     initial-value: white;
 }
+
+@property --calendario-giorno-mese-dispari-colore {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #f1f1f1;
+}
+
+@property --calendario-giorno-attivita-ordinaria-colore {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(228, 246, 255);
+}
+
+@property --calendario-giorno-numero-corrente-colore {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: rgb(249, 208, 155);
+}

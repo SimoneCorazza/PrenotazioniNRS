@@ -5,7 +5,7 @@
 }
 
 .giorno-mese-dispari {
-    background-color: #f1f1f1;
+    background-color: var(--calendario-giorno-mese-dispari-colore);
 }
 
 .giorno {
@@ -28,7 +28,7 @@
 }
 
 .giorno-attivita-ordinaria {
-    background-color: rgb(228, 246, 255);
+    background-color: var(--calendario-giorno-attivita-ordinaria-colore);
 }
 
 .giorno:last-child {
@@ -52,7 +52,7 @@
 
 .giorno-numero.corrente > span {
     font-weight: bold;
-    background-color: rgb(249, 208, 155);
+    background-color: var(--calendario-giorno-numero-corrente-colore);
     border-radius: 50%;
     width: 20px;
     height: 20px;
