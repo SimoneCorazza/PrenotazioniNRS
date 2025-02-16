@@ -78,12 +78,12 @@ const ModaleAttivita: React.FC<ModaleAttivitaProps> = ({ responsabiliApertura, r
             <div className='modale-attivita'>
                 <div>
                     <div>{AperturaIcon}</div>
-                    {!responsabiliApertura || responsabiliApertura.length === 0 ? <div>nessuno</div> : responsabiliApertura.map(x => <div>{x}</div>)}
+                    {!responsabiliApertura || responsabiliApertura.length === 0 ? <div>nessuno</div> : responsabiliApertura.map(x => <div key={x}>{x}</div>)}
                     
                 </div>
                 <div>
                     <div>{ChiusuraIcon}</div>
-                    {!responsabiliChiusura || responsabiliChiusura.length === 0 ? <div>nessuno</div> : responsabiliChiusura.map(x => <div>{x}</div>)}
+                    {!responsabiliChiusura || responsabiliChiusura.length === 0 ? <div>nessuno</div> : responsabiliChiusura.map(x => <div key={x}>{x}</div>)}
                 </div>
             </div>
             <div className='modale-attivita-bottoni'>
