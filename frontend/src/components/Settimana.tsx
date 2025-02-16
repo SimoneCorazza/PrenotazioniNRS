@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon';
 import React, { MouseEventHandler, useCallback, useMemo, useState } from 'react';
-import Attivita from './Attivita';
-import Pulizie from './Pulizie';
+import Giorno from './Giorno';
 import ModaleAttivita from './ModaleAttivita';
 import AperturaOrdinaria from 'src/api/AperturaOrdinaria';
 import PuliziaSede from 'src/api/PuliziaSede';
@@ -13,51 +12,33 @@ interface SettimanaProps {
     puliziaSede: PuliziaSede | undefined;
 }
 
-interface Giorno {
-    data: DateTime;
-    isGiornoCorrente: boolean;
-    responsabiliAperura: string[];
-    responsabiliChiusura: string[];
-    isGiornoAttivitaOrdinaria: boolean;
-}
+
 
 const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, puliziaSede }) => {
     const [giornoSelezionato, setGiornoSelezionato] = useState<DateTime | null>(null);
 
-    const giorni = useMemo<Giorno[]>(() => [0, 1, 2, 3, 4, 5, 6].map(i =>
+    const trovaAttivitaOrdinaria = useCallback((d: DateTime): AperturaOrdinaria | undefined => {
+        return attivitaOrdinarie.find(x => DateTime.fromFormat(x.giorno, "yyyy-MM-dd").equals(d));
+    }, [attivitaOrdinarie]);
+
+    const giorni = useMemo<JSX.Element[]>(() => [0, 1, 2, 3, 4, 5, 6].map(i =>
     {
         const d = lunedi.plus({ days: i });
-        const a = attivitaOrdinarie.find(x => DateTime.fromFormat(x.giorno, "yyyy-MM-dd").equals(d));
-        return {
-            data: d,
-            isGiornoCorrente: lunedi.plus({ days: i }).hasSame(oggi, 'day'),
-            responsabiliAperura: a?.responsabiliApertura || [],
-            responsabiliChiusura: a?.responsabiliChiusura || [],
-            isGiornoAttivitaOrdinaria: d.weekday === 2 || d.weekday === 5,
-        };
-    }), [attivitaOrdinarie, lunedi, oggi]);
+        const a = trovaAttivitaOrdinaria(d);
 
-    const isSettimanaCorrente = useMemo(() => lunedi.weekNumber === oggi.weekNumber && lunedi.year === oggi.year, [lunedi, oggi]);
-
-    const renderGiorno = useCallback((d: Giorno) => {
-        if (d.data.weekday === 7) {
-            return <Pulizie responsabiliPuliziaSede={puliziaSede?.responsabili || []} />
-        } else if(d.responsabiliAperura.length > 0 || d.responsabiliChiusura.length > 0) {
-            return <Attivita
-                responsabiliApertura={d.responsabiliAperura}
-                responsabiliChiusura={d.responsabiliChiusura}/>;
-        } else {
-            return <></>;
-        }
-    }, [puliziaSede?.responsabili])
-
-    const onClickGiorno = useCallback((g: Giorno): MouseEventHandler | undefined =>  {
-        if (!g.isGiornoAttivitaOrdinaria) {
-            return undefined;
+        let onClick = () => {};
+        if (d.weekday === 2 || d.weekday === 5) {
+            onClick = () => setGiornoSelezionato(d);
         }
 
-        return () => setGiornoSelezionato(g.data);
-    }, []);
+        return <Giorno
+            key={i}
+            data={d}
+            oggi={oggi}
+            responsabiliApertura={a?.responsabiliApertura || []}
+            responsabiliChiusura={a?.responsabiliChiusura || []}
+            onClick={onClick} />;
+    }), [lunedi, oggi, trovaAttivitaOrdinaria]);
 
     const onModaleChiusa = useCallback(() => setGiornoSelezionato(null), [setGiornoSelezionato]);
 
@@ -66,23 +47,17 @@ const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, 
             return <></>;
         }
 
-        const g = giorni.find(x => x.data.weekday === giornoSelezionato.weekday);
+        const a = trovaAttivitaOrdinaria(giornoSelezionato);
         return <ModaleAttivita
-            responsabiliApertura={g?.responsabiliAperura || []}
-            responsabiliChiusura={g?.responsabiliChiusura || []}
+            responsabiliApertura={a?.responsabiliApertura || []}
+            responsabiliChiusura={a?.responsabiliChiusura || []}
             giorno={giornoSelezionato}
             onCancel={onModaleChiusa}/>;
-    }, [giornoSelezionato, giorni, onModaleChiusa])
+    }, [giornoSelezionato, trovaAttivitaOrdinaria, onModaleChiusa]);
 
     return (
-        <div className={'settimana' + (isSettimanaCorrente ? ' corrente' : '')}>
-            {giorni.map(d => 
-                <div key={d.data.toISODate()} className='settimana-giorno' onClick={onClickGiorno(d)}>
-                    <div className={'settimana-giorno-numero' + (d.isGiornoCorrente ? ' corrente' : '')}>
-                        <span>{d.data.toFormat('dd')}</span>
-                    </div>
-                    {renderGiorno(d)}
-                </div>)}
+        <div className='settimana'>
+            {giorni.map(d => d)}
             {modale}
         </div>
     );

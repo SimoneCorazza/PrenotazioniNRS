@@ -38,11 +38,11 @@ body {
     border-top-color: var(--divisione-calendario-colore);
 }
 
-.settimana.corrente {
+.mese-dispari {
     background-color: #ececec;
 }
 
-.settimana-giorno {
+.giorno {
     font-size: 10px;
     color: gray;
     width: 14.28%;
@@ -53,18 +53,22 @@ body {
     border-left-color: var(--divisione-calendario-colore);
 }
 
-.settimana-giorno:last-child {
+.giorno-attivita-ordinaria {
+    background-color: rgb(228, 246, 255);
+}
+
+.giorno:last-child {
     border-right-style: solid;
     border-right-width: 1px;
     border-right-color: var(--divisione-calendario-colore);
 }
 
-.settimana-giorno-numero {
+.giorno-numero {
     text-align: center;
     margin-top: 5px;
 }
 
-.settimana-giorno-numero.corrente > span {
+.giorno-numero.corrente > span {
     font-weight: bold;
     background-color: rgb(249, 208, 155);
     border-radius: 50%;
@@ -72,6 +76,10 @@ body {
     height: 20px;
     display: inline-block;
     align-content: center;
+}
+
+.giorno-mese {
+    text-align: center;
 }
 
 .attivita {
