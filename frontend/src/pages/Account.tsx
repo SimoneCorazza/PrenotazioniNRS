@@ -1,5 +1,5 @@
-import { Button, Input, Typography } from 'antd';
-import React, { useCallback, useState } from 'react';
+import { Button, Input, InputRef, Typography } from 'antd';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { setNomeUtente as setNomeUtenteStorage } from 'src/storage';
 
 interface AccountProps {
@@ -8,11 +8,16 @@ interface AccountProps {
 
 const Account: React.FC<AccountProps> = ({ nomeImpostato }) => {
     const [nomeUtente, setNomeUtente] = useState('');
+    const inputUsername = useRef<InputRef>(null);
 
     const onSubmit = useCallback(() => {
         setNomeUtenteStorage(nomeUtente);
         nomeImpostato();
     }, [nomeImpostato, nomeUtente]);
+
+    useEffect(() => {
+        inputUsername.current?.focus();
+    }, [inputUsername]);
 
     return (
         <div className='account-input'>
@@ -22,6 +27,7 @@ const Account: React.FC<AccountProps> = ({ nomeImpostato }) => {
                     value={nomeUtente}
                     onPressEnter={onSubmit}
                     onChange={e => setNomeUtente(e.target.value)}
+                    ref={inputUsername}
                     />
                 <Button
                     style={{ marginTop: "15px", width: "100%"}}

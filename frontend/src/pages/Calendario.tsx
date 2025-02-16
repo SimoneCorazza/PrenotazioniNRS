@@ -4,10 +4,12 @@ import Settimana from 'src/components/Settimana';
 import { DateTime } from 'luxon';
 import CalendarioType from '../api/Calendario';
 import { fetchCalendario } from '../api'
+import CalendarioHeader from 'src/components/CalendarioHeader';
 
 const Calendario: React.FC = () => {
 	const [dati, setDati] = useState<CalendarioType | null>(null);
 	const [errore, setErrore] = useState(false);
+
 	const [from, setFrom] = useState(DateTime.local().startOf('week').plus({ weeks: -1 }));
 	const [to, setTo] = useState(from.plus({ weeks: 10 }));
 
@@ -54,15 +56,7 @@ const Calendario: React.FC = () => {
 
 	return (
 		<div className='calendario'>
-			<div className='calendario-header'>
-				<div className='calendario-header-giorno'>L</div>
-				<div className='calendario-header-giorno'>M</div>
-				<div className='calendario-header-giorno'>M</div>
-				<div className='calendario-header-giorno'>G</div>
-				<div className='calendario-header-giorno'>V</div>
-				<div className='calendario-header-giorno'>S</div>
-				<div className='calendario-header-giorno'>D</div>
-			</div>
+			<CalendarioHeader />
 			{giorni.map(g => (<Settimana
 				key={g.year + "-" + g.weekNumber}
 				oggi={oggi}
