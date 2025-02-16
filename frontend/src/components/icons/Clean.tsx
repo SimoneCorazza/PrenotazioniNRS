@@ -1,5 +1,5 @@
 const CleanIcon = 
-  <svg fill="#000000" width="25px" height="25px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <svg width="18px" height="18px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
       <rect x="20" y="18" width="6" height="2" transform="translate(46 38) rotate(-180)"/>
       <rect x="24" y="26" width="6" height="2" transform="translate(54 54) rotate(-180)"/>
       <rect x="22" y="22" width="6" height="2" transform="translate(50 46) rotate(-180)"/>

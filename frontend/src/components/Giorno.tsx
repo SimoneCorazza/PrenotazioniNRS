@@ -13,6 +13,7 @@ interface GiornoProps {
 const Giorno: React.FC<GiornoProps> = ({ data, oggi, responsabiliApertura, responsabiliChiusura, onClick }) => {
     const isGiornoCorrente = useMemo<boolean>(() => data.hasSame(oggi, "day"), [data, oggi]);
     const isGiornoAttivitaOrdinaria = useMemo<boolean>(() => data.weekday === 2 || data.weekday === 5, [data]);
+    const isMeseDispari = useMemo<boolean>(() => data.month % 2 === 1, [data]);
 
     const componenteGiornata = useMemo(() => {
         if (responsabiliApertura.length > 0 || responsabiliChiusura.length > 0) {
@@ -27,6 +28,10 @@ const Giorno: React.FC<GiornoProps> = ({ data, oggi, responsabiliApertura, respo
     let css: string[] = ['giorno'];
     if (isGiornoAttivitaOrdinaria) {
         css.push('giorno-attivita-ordinaria');
+    }
+
+    if (isMeseDispari) {
+        css.push("giorno-mese-dispari");
     }
 
     return <div key={data.toISODate()} className={css.join(' ')} onClick={() => onClick(data)}>

@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon';
-import React, { MouseEventHandler, useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import Giorno from './Giorno';
 import ModaleAttivita from './ModaleAttivita';
 import AperturaOrdinaria from 'src/api/AperturaOrdinaria';
 import PuliziaSede from 'src/api/PuliziaSede';
+import Pulizie from './Pulizie';
 
 interface SettimanaProps {
     lunedi: DateTime;
@@ -56,10 +57,13 @@ const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, 
     }, [giornoSelezionato, trovaAttivitaOrdinaria, onModaleChiusa]);
 
     return (
-        <div className='settimana'>
-            {giorni.map(d => d)}
-            {modale}
-        </div>
+        <>
+            <div className='settimana'>
+                {giorni.map(d => d)}
+                {modale}
+            </div>
+            <Pulizie lunedi={lunedi} responsabiliPuliziaSede={puliziaSede?.responsabili || []} />
+        </>
     );
 };
 

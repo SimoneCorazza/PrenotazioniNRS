@@ -49,3 +49,13 @@ export const postNonChiudoIo = async (data: DateTime) : Promise<ApiResponse> => 
     const r =  await instance.delete<ApiResponse>(`/api/v1/AttivitaOrdinaria/Rimuovimi/Chiusura/${data.toFormat("yyyy-MM-dd")}`);
     return r.data;
 }
+
+export const postNonPuliscoIo = async (numeroSettimana: number, anno: number) : Promise<ApiResponse> =>  {
+    const r =  await instance.delete<ApiResponse>(`/api/v1/PuliziaSede/Rimuovimi/${anno}/${numeroSettimana}`);
+    return r.data;
+}
+
+export const postPuliscoIo = async (numeroSettimana: number, anno: number) : Promise<ApiResponse> =>  {
+    const r =  await instance.post<ApiResponse>(`/api/v1/PuliziaSede/Aggiungimi/${anno}/${numeroSettimana}`);
+    return r.data;
+}

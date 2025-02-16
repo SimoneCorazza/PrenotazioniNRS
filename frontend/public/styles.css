@@ -4,6 +4,18 @@
     initial-value: #c2c2c2;
 }
 
+@property --calendario-testo-colore {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: gray;
+}
+
+@property --calendario-icone-colore {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: gray;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     max-width: 800px;
@@ -14,7 +26,7 @@ body {
 .calendario-header {
     display: flex;
     justify-content: space-between;
-    color: gray;
+    color: var(--calendario-testo-colore);
     font-size: 12px;
 }
 
@@ -32,19 +44,19 @@ body {
     border-bottom-color: var(--divisione-calendario-colore);
 }
 
-.settimana:first-child {
+.settimana {
     border-top-style: solid;
     border-top-width: 1px;
     border-top-color: var(--divisione-calendario-colore);
 }
 
-.mese-dispari {
-    background-color: #ececec;
+.giorno-mese-dispari {
+    background-color: #f1f1f1;
 }
 
 .giorno {
     font-size: 10px;
-    color: gray;
+    color: var(--calendario-testo-colore);
     width: 14.28%;
     height: 160px;
 
@@ -91,11 +103,15 @@ body {
 }
 
 .pulizie {
-    margin: 20px 3px 3px 3px;
+    margin: 3px 3px 3px 3px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--calendario-testo-colore);
 }
 
 .pulizie-icona {
-    text-align: center;
+    margin-right: 10px;
+    color: red;
 }
 
 .responsabile {
@@ -137,4 +153,14 @@ body {
 .account-input > div {
     max-width: 500px;
     width: 100%;
+}
+
+.modale-pulizie {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.modale-pulizie > div {
+    width: 100%;
+    text-align: center;
 }
