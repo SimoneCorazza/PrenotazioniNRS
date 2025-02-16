@@ -1,0 +1,11 @@
+.calendario-header {
+    display: flex;
+    justify-content: space-between;
+    color: var(--calendario-testo-colore);
+    font-size: 12px;
+}
+
+.calendario-header-giorno {
+    width: 14.28%;
+    text-align: center;
+}

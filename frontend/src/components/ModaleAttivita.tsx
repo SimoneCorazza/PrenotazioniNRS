@@ -86,7 +86,7 @@ const ModaleAttivita: React.FC<ModaleAttivitaProps> = ({ responsabiliApertura, r
                     {!responsabiliChiusura || responsabiliChiusura.length === 0 ? <div>nessuno</div> : responsabiliChiusura.map(x => <div>{x}</div>)}
                 </div>
             </div>
-            <div className='modale-bottoni'>
+            <div className='modale-attivita-bottoni'>
                 <div>{bottoneApertura}</div>
                 <div>{bottoneChiusura}</div>
             </div>

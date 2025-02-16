@@ -1,0 +1,14 @@
+.settimana {
+    display: flex;
+    justify-content: space-between;
+
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--divisione-calendario-colore);
+}
+
+.settimana {
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: var(--divisione-calendario-colore);
+}

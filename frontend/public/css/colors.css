@@ -1,0 +1,17 @@
+@property --divisione-calendario-colore {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #c2c2c2;
+}
+
+@property --calendario-testo-colore {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: gray;
+}
+
+@property --calendario-icone-colore {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: gray;
+}

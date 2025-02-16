@@ -1,166 +1,17 @@
-@property --divisione-calendario-colore {
-    syntax: "<color>";
-    inherits: false;
-    initial-value: #c2c2c2;
-}
-
-@property --calendario-testo-colore {
-    syntax: "<color>";
-    inherits: false;
-    initial-value: gray;
-}
-
-@property --calendario-icone-colore {
-    syntax: "<color>";
-    inherits: false;
-    initial-value: gray;
-}
+@import "css/colors.css";
+@import "css/pages/calendario.css";
+@import "css/pages/account.css";
+@import "css/components/settimana.css";
+@import "css/components/giorno.css";
+@import "css/components/attivita.css";
+@import "css/components/pulizie.css";
+@import "css/components/responsabili.css";
+@import "css/components/modaleAttivita.css";
+@import "css/components/modalePulizie.css";
 
 body {
     font-family: 'Roboto', sans-serif;
     max-width: 800px;
     margin: 0 auto;
     user-select: none;
-}
-
-.calendario-header {
-    display: flex;
-    justify-content: space-between;
-    color: var(--calendario-testo-colore);
-    font-size: 12px;
-}
-
-.calendario-header-giorno {
-    width: 14.28%;
-    text-align: center;
-}
-
-.settimana {
-    display: flex;
-    justify-content: space-between;
-
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: var(--divisione-calendario-colore);
-}
-
-.settimana {
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: var(--divisione-calendario-colore);
-}
-
-.giorno-mese-dispari {
-    background-color: #f1f1f1;
-}
-
-.giorno {
-    font-size: 10px;
-    color: var(--calendario-testo-colore);
-    width: 14.28%;
-    height: 160px;
-
-    border-left-style: solid;
-    border-left-width: 1px;
-    border-left-color: var(--divisione-calendario-colore);
-}
-
-.giorno-attivita-ordinaria {
-    background-color: rgb(228, 246, 255);
-}
-
-.giorno:last-child {
-    border-right-style: solid;
-    border-right-width: 1px;
-    border-right-color: var(--divisione-calendario-colore);
-}
-
-.giorno-numero {
-    text-align: center;
-    margin-top: 5px;
-}
-
-.giorno-numero.corrente > span {
-    font-weight: bold;
-    background-color: rgb(249, 208, 155);
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    align-content: center;
-}
-
-.giorno-mese {
-    text-align: center;
-}
-
-.attivita {
-    margin: 10px 3px 3px 3px;
-}
-
-.attivita-icona {
-    text-align: center;
-}
-
-.pulizie {
-    margin: 3px 3px 3px 3px;
-    text-align: center;
-    font-size: 12px;
-    color: var(--calendario-testo-colore);
-}
-
-.pulizie-icona {
-    margin-right: 10px;
-    color: red;
-}
-
-.responsabile {
-    margin-left: 5px;
-    margin-right: 5px;
-    text-align: center;
-
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.modale-attivita {
-    display: flex;
-}
-
-.modale-attivita > div {
-    width: 50%;
-    text-align: center;
-}
-
-.modale-bottoni {
-    display: flex;
-    margin-top: 30px;
-}
-
-.modale-bottoni > div {
-    width: 50%;
-    text-align: center;
-}
-
-.account-input {
-    align-items: center;
-    text-align: center;
-
-    margin: 50px 20px 20px 20px;
-}
-
-.account-input > div {
-    max-width: 500px;
-    width: 100%;
-}
-
-.modale-pulizie {
-    display: flex;
-    margin-bottom: 20px;
-}
-
-.modale-pulizie > div {
-    width: 100%;
-    text-align: center;
 }
