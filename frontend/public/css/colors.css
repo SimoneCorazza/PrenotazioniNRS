@@ -13,5 +13,5 @@
 @property --calendario-icone-colore {
     syntax: "<color>";
     inherits: false;
-    initial-value: gray;
+    initial-value: #757575;
 }

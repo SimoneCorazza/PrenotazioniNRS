@@ -1,4 +1,4 @@
-const ChiusuraIcon = <svg fill="#000000" height="25px" width="25px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" 
+const ChiusuraIcon = <svg height="25px" width="25px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" 
 viewBox="0 0 512 512">
 <g>
 <g>

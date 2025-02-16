@@ -4,4 +4,5 @@
 
 .attivita-icona {
     text-align: center;
+    fill: var(--calendario-icone-colore);
 }

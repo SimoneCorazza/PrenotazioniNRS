@@ -7,5 +7,5 @@
 
 .pulizie-icona {
     margin-right: 10px;
-    color: red;
+    fill: var(--calendario-icone-colore);
 }
