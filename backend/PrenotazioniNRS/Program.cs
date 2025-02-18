@@ -44,14 +44,14 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1");
         c.RoutePrefix = string.Empty;
     });
-
-    app.UseCors(builder =>
-    {
-        builder.AllowAnyOrigin();
-        builder.AllowAnyMethod();
-        builder.AllowAnyHeader();
-    });
 }
+
+app.UseCors(builder =>
+{
+    builder.AllowAnyOrigin();
+    builder.AllowAnyMethod();
+    builder.AllowAnyHeader();
+});
 
 app.UseWhen(context => !context.Request.Path.StartsWithSegments("/docs"), appBuilder =>
 {

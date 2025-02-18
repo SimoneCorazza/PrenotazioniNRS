@@ -3,7 +3,7 @@ services:
     build:
       context: ./frontend
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
       - backend
   backend:
@@ -14,6 +14,8 @@ services:
       - "8080:8080"
     depends_on:
       - db
+    environment:
+      - Persistence__ConnectionString=Host=db;Database=PrenotazioniNRS;Username=postgres;Password=postgres
   db:
     image: postgres:latest
     environment:
