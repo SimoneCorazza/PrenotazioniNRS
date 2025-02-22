@@ -18,5 +18,5 @@
       "noImplicitAny": true,
       "baseUrl": "."
     },
-    "include": ["src", "src/api/AperturaOrdinaria.d.ts", "src/api/Calendario.d.ts", "src/api/PuliziaSede.d.ts"]
+    "include": ["src"]
   }
