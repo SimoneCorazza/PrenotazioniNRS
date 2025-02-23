@@ -13,7 +13,7 @@ steps:
       repository: simonecorazza/prenotazioninrs
       buildContext: ./backend
       tags: |
-        $(Build.BuildId)
+        backend-$(Build.BuildId)
   - task: Docker@2
     displayName: FRONTEND | Build and push to container repository
     inputs:
@@ -22,4 +22,4 @@ steps:
       repository: simonecorazza/prenotazioninrs
       buildContext: ./frontend
       tags: |
-        $(Build.BuildId)
+        frontend-$(Build.BuildId)
