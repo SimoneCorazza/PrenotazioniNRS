@@ -10,6 +10,7 @@ steps:
     inputs:
       command: buildAndPush
       containerRegistry: Registry PrenotazioneNRS
+      repository: prenotazioninrs
       buildContext: ./backend
       tags: |
         $(Build.BuildId)
