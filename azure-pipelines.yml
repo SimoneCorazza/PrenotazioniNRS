@@ -14,6 +14,7 @@ jobs:
       containerRegistry: Registry PrenotazioneNRS
       repository: simonecorazza/prenotazioninrs
       buildContext: ./backend
+      Dockerfile: ./backend/Dockerfile
       tags: |
         backend-$(Build.BuildId)
 - job: FRONTEND
@@ -25,5 +26,6 @@ jobs:
       containerRegistry: Registry PrenotazioneNRS
       repository: simonecorazza/prenotazioninrs
       buildContext: ./frontend
+      Dockerfile: ./frontend/Dockerfile
       tags: |
         frontend-$(Build.BuildId)
