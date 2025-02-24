@@ -4,7 +4,7 @@ import Calendario from './Calendario';
 import { getNomeUtente } from 'src/storage';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
 instance.interceptors.request.use(

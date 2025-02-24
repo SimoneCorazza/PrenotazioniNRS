@@ -6,6 +6,8 @@ services:
       - "3000:80"
     depends_on:
       - backend
+    environment:
+      - SERVER_URL=backend:8080
   backend:
     build:
       context: ./backend
