@@ -3,8 +3,14 @@ import axios from 'axios';
 import Calendario from './Calendario';
 import { getNomeUtente } from 'src/storage';
 
+declare global {
+    interface Window {
+        env:any;
+    }
+}
+
 const instance = axios.create({
-    baseURL: process.env.REACT_APP_SERVER_URL,
+    baseURL: window.env.REACT_APP_SERVER_URL,
 });
 
 instance.interceptors.request.use(
