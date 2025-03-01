@@ -49,9 +49,9 @@ const ModalePulizie: React.FC<ModalePulizieProps> = ({ lunedi, responsabili, onC
 
     let bottoneApertura: JSX.Element;
     if (sonoResponsabileDellePulizie) {
-        bottoneApertura = <Button variant='solid' color='danger' onClick={onNonPuliscoIo}>Non pulisco io</Button>;
+        bottoneApertura = <Button key={1} variant='solid' color='danger' onClick={onNonPuliscoIo}>Non pulisco io</Button>;
     } else {
-        bottoneApertura = <Button variant='solid' color='primary' onClick={onPuliscoIo}>Pulisco io</Button>;
+        bottoneApertura = <Button key={1} variant='solid' color='primary' onClick={onPuliscoIo}>Pulisco io</Button>;
     }
 
     return <Modal
