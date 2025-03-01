@@ -2,6 +2,8 @@ import React, { useCallback, useMemo, useState } from 'react';
 import CleanIcon from './icons/Clean';
 import ModalePulizie from './ModalePulizie';
 import { DateTime } from 'luxon';
+import { Button } from 'antd';
+import ApriModale from './icons/ApriModale';
 
 interface PulizieProps {
     /** Lunedì di inizio settimana */
@@ -25,9 +27,14 @@ const Pulizie: React.FC<PulizieProps> = ({lunedi, responsabiliPuliziaSede}) => {
     }, [setMostraModale]);
 
     return <>
-        <div className='pulizie' onClick={onClick}>
+        <div className='pulizie'>
             <span className='pulizie-icona'>{CleanIcon}</span>
             <span>{responsabili}</span>
+            <Button style={{marginLeft: "10px"}} size='small' onClick={onClick} icon={<ApriModale/>}>
+                Detaglio
+            </Button>
+            
+            
         </div>
         {mostraModale && <ModalePulizie lunedi={lunedi} responsabili={responsabiliPuliziaSede} onClose={() => setMostraModale(false)} />}
     </>;
