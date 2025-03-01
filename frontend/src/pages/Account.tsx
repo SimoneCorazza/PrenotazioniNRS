@@ -1,6 +1,6 @@
 import { Button, Input, InputRef, Typography } from 'antd';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { setNomeUtente as setNomeUtenteStorage } from 'src/storage';
+import { setNomeUtente as setNomeUtenteStorage } from 'src/services/LocalStorage';
 
 interface AccountProps {
     nomeImpostato: () => void;

@@ -4,4 +4,7 @@ export const setNomeUtente = (nomeUtente: string) => localStorage.setItem(chiave
 
 export const getNomeUtente = () => localStorage.getItem(chiave);
 
-export const logout = () => localStorage.removeItem(chiave);
+export const logout = () => {
+    localStorage.removeItem(chiave);
+    window.location.reload();
+};

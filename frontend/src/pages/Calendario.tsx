@@ -2,35 +2,37 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Spin, Typography } from 'antd';
 import Settimana from 'src/components/Settimana';
 import { DateTime } from 'luxon';
-import CalendarioType from '../api/Calendario';
-import { fetchCalendario } from '../api'
 import CalendarioHeader from 'src/components/CalendarioHeader';
+import useCalendarioStore from 'src/hooks/Calendar';
 
 const Calendario: React.FC = () => {
-	const [dati, setDati] = useState<CalendarioType | null>(null);
 	const [errore, setErrore] = useState(false);
-
-	const [from, setFrom] = useState(DateTime.local().startOf('week').plus({ weeks: -1 }));
-	const [to, setTo] = useState(from.plus({ weeks: 10 }));
+	const store = useCalendarioStore();
 
 	const oggi = useMemo(() => DateTime.local(), []);
 
-	const giorni = useMemo(() => {
+
+
+	const settimane = useMemo(() => {
+		if (store.from === null || store.to === null) {
+			return [];
+		}
+		
 		const g: DateTime[] = [];
 
-		let it = from;
-		while (it < to) {
+		let it = store.from;
+		while (it < store.to) {
 			g.push(it);
 			it = it.plus({ weeks: 1 });
 		}
 		return g;
-	}, [from, to]);
+	}, [store.from, store.to]);
 
 	useEffect(() => {
 		async function fetchMyAPI() {
+			const from = DateTime.local().startOf('week').plus({ weeks: -1 });
 			try {
-				const res = await fetchCalendario(from, to);
-				setDati(res);
+				await store.fetch(from, from.plus({ weeks: 10 }));
 			}
 			catch {
 				setErrore(true);
@@ -38,10 +40,10 @@ const Calendario: React.FC = () => {
 		}
 
 		fetchMyAPI();
-	}, [from, to]);
+	}, []);
 
 
-	if (!dati && !errore) {
+	if (!store.calendario && !errore) {
 		return (
 			<Spin size='large' fullscreen delay={200} />
 		);
@@ -56,12 +58,12 @@ const Calendario: React.FC = () => {
 	return (
 		<div className='calendario'>
 			<CalendarioHeader />
-			{giorni.map(g => (<Settimana
+			{settimane.map(g => (<Settimana
 				key={g.year + "-" + g.weekNumber}
 				oggi={oggi}
 				lunedi={g}
-				attivitaOrdinarie={dati?.apertureOrdinarie || []}
-				puliziaSede={dati?.pulizieSede?.find(x => x.numeroSettimana === g.weekNumber && x.anno === g.year)}
+				attivitaOrdinarie={store.calendario?.apertureOrdinarie || []}
+				puliziaSede={store.calendario?.pulizieSede?.find(x => x.numeroSettimana === g.weekNumber && x.anno === g.year)}
 				/>))}
 			
 		</div>

@@ -3,8 +3,9 @@ import { Button, Modal, Alert } from 'antd';
 import { DateTime } from 'luxon';
 import AperturaIcon from './icons/Apertura';
 import ChiusuraIcon from './icons/Chiusura';
-import { getNomeUtente } from 'src/storage';
+import { getNomeUtente } from 'src/services/LocalStorage';
 import { postAproIo, postChiudoIo, postNonAproIo, postNonChiudoIo } from 'src/api';
+import useCalendarioStore from 'src/hooks/Calendar';
 
 interface ModaleAttivitaProps {
     responsabiliApertura: string[];
@@ -15,14 +16,14 @@ interface ModaleAttivitaProps {
 
 const ModaleAttivita: React.FC<ModaleAttivitaProps> = ({ responsabiliApertura, responsabiliChiusura, giorno, onCancel }) => {
     const [errore, setErrore] = useState<string | null>(null);
+    const refetch = useCalendarioStore(store => store.refetch);
 
     const sonoResponsabileDellaChiusura = useMemo(() => responsabiliChiusura.indexOf(getNomeUtente() || '') !== -1, [responsabiliChiusura]);
     const sonoResponsabileDellaApertura = useMemo(() => responsabiliApertura.indexOf(getNomeUtente() || '') !== -1, [responsabiliApertura]);
 
     const onUpdate = useCallback(() => {
-        //TODO: non fare refresh ma aggiornare lo stato
-        window.location.reload();
-    }, []);
+        refetch();
+    }, [refetch]);
 
     const post = useCallback(async (fn: () => Promise<ApiResponse>) => {
         try {

@@ -1,13 +1,12 @@
 import { Avatar, Popconfirm } from 'antd';
 import React, { useCallback } from 'react';
-import { getNomeUtente, logout } from 'src/storage';
+import { getNomeUtente, logout } from 'src/services/LocalStorage';
 
 const CalendarioHeader: React.FC = () => {
     const username = getNomeUtente();
 
     const onLogout = useCallback(() => {
         logout();
-        window.location.reload();
     }, []);
 
 

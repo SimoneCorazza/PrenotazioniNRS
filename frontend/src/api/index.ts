@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import axios from 'axios';
 import Calendario from './Calendario';
-import { getNomeUtente } from 'src/storage';
+import { getNomeUtente } from 'src/services/LocalStorage';
 
 declare global {
     interface Window {

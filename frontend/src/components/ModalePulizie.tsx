@@ -2,8 +2,9 @@ import { Alert, Button, Modal } from 'antd';
 import React, { useCallback, useMemo, useState } from 'react';
 import CleanIcon from './icons/Clean';
 import { postNonPuliscoIo, postPuliscoIo } from 'src/api';
-import { getNomeUtente } from 'src/storage';
+import { getNomeUtente } from 'src/services/LocalStorage';
 import { DateTime } from 'luxon';
+import useCalendarioStore from 'src/hooks/Calendar';
 
 interface ModalePulizieProps {
     /** Lunedì di inizio settimana */
@@ -15,16 +16,16 @@ interface ModalePulizieProps {
 
 const ModalePulizie: React.FC<ModalePulizieProps> = ({ lunedi, responsabili, onClose }) => {
     const [errore, setErrore] = useState<string | null>(null);
+    const refetch = useCalendarioStore(store => store.refetch);
 
     const sonoResponsabileDellePulizie = useMemo(() => responsabili.indexOf(getNomeUtente() || '') !== -1, [responsabili]);
 
     const sabato = useMemo<string>(() => lunedi.plus({ days: 5 }).toFormat("EEEE dd MMMM"), [lunedi]);
     const lunediProssimo = useMemo<string>(() => lunedi.plus({ days: 7 }).toFormat("EEEE dd MMMM"), [lunedi]);
     
-    const onUpdate = useCallback(() => {
-        //TODO: non fare refresh ma aggiornare lo stato
-        window.location.reload();
-    }, []);
+    const onUpdate = useCallback(async () => {
+        await refetch();
+    }, [refetch]);
 
     const post = useCallback(async (fn: () => Promise<ApiResponse>) => {
         try {
