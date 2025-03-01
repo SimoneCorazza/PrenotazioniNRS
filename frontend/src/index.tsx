@@ -12,18 +12,19 @@ const root = ReactDOM.createRoot(rootElement);
 const algoritmi = [];
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
   algoritmi.push(theme.darkAlgorithm);
+} else {
+  algoritmi.push(theme.defaultAlgorithm);
 }
 
-algoritmi.push(theme.defaultAlgorithm);
 
 
 root.render(
   <React.StrictMode>
     <ConfigProvider
-    theme={{
-      algorithm: [theme.darkAlgorithm],
-    }}
-  >
+      theme={{
+        algorithm: algoritmi,
+      }}
+    >
       <App/>
     </ConfigProvider>
   </React.StrictMode>
