@@ -5,6 +5,8 @@ import ModaleAttivita from './ModaleAttivita';
 import AperturaOrdinaria from 'src/api/AperturaOrdinaria';
 import PuliziaSede from 'src/api/PuliziaSede';
 import Pulizie from './Pulizie';
+import { message } from 'antd';
+import useCalendarioStore from 'src/hooks/Calendar';
 
 interface SettimanaProps {
     lunedi: DateTime;
@@ -13,10 +15,10 @@ interface SettimanaProps {
     puliziaSede: PuliziaSede | undefined;
 }
 
-
-
 const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, puliziaSede }) => {
     const [giornoSelezionato, setGiornoSelezionato] = useState<DateTime | null>(null);
+    const [messageApi, contextHolder] = message.useMessage();
+    const refetch = useCalendarioStore(store => store.refetch);
 
     const trovaAttivitaOrdinaria = useCallback((d: DateTime): AperturaOrdinaria | undefined => {
         return attivitaOrdinarie.find(x => DateTime.fromFormat(x.giorno, "yyyy-MM-dd").equals(d));
@@ -42,6 +44,11 @@ const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, 
     }), [lunedi, oggi, trovaAttivitaOrdinaria]);
 
     const onModaleChiusa = useCallback(() => setGiornoSelezionato(null), [setGiornoSelezionato]);
+    const onUpdate = useCallback(async () => {
+        setGiornoSelezionato(null);
+        await refetch();
+        messageApi.success("Attività aggiornate!");
+    }, [refetch, messageApi]);
 
     const modale = useMemo(() => {
         if (!giornoSelezionato) {
@@ -53,11 +60,13 @@ const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, 
             responsabiliApertura={a?.responsabiliApertura || []}
             responsabiliChiusura={a?.responsabiliChiusura || []}
             giorno={giornoSelezionato}
-            onCancel={onModaleChiusa}/>;
-    }, [giornoSelezionato, trovaAttivitaOrdinaria, onModaleChiusa]);
+            onCancel={onModaleChiusa}
+            onUpdate={onUpdate}/>;
+    }, [giornoSelezionato, trovaAttivitaOrdinaria, onModaleChiusa, onUpdate]);
 
     return (
         <>
+            {contextHolder}
             <div className='settimana'>
                 {giorni.map(d => d)}
                 {modale}

@@ -2,8 +2,9 @@ import React, { useCallback, useMemo, useState } from 'react';
 import CleanIcon from './icons/Clean';
 import ModalePulizie from './ModalePulizie';
 import { DateTime } from 'luxon';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import ApriModale from './icons/ApriModale';
+import useCalendarioStore from 'src/hooks/Calendar';
 
 interface PulizieProps {
     /** Lunedì di inizio settimana */
@@ -13,6 +14,8 @@ interface PulizieProps {
 
 const Pulizie: React.FC<PulizieProps> = ({lunedi, responsabiliPuliziaSede}) => {
     const [mostraModale, setMostraModale] = useState<boolean>(false);
+    const [messageApi, contextHolder] = message.useMessage();
+    const refetch = useCalendarioStore(store => store.refetch);
 
     const responsabili = useMemo<string>(() => {
         if (!responsabiliPuliziaSede || responsabiliPuliziaSede.length === 0) {
@@ -26,7 +29,18 @@ const Pulizie: React.FC<PulizieProps> = ({lunedi, responsabiliPuliziaSede}) => {
         setMostraModale(true);
     }, [setMostraModale]);
 
+    const onClose = useCallback(() => {
+        setMostraModale(false);
+    }, [setMostraModale]);
+
+    const onUpdate = useCallback(async () => {
+        setMostraModale(false);
+        await refetch();
+        messageApi.success("Pulizie aggiornate!");
+    }, [refetch, messageApi]);
+
     return <>
+        {contextHolder}
         <div className='pulizie'>
             <span className='pulizie-icona'>{CleanIcon}</span>
             <span>{responsabili}</span>
@@ -36,7 +50,7 @@ const Pulizie: React.FC<PulizieProps> = ({lunedi, responsabiliPuliziaSede}) => {
             
             
         </div>
-        {mostraModale && <ModalePulizie lunedi={lunedi} responsabili={responsabiliPuliziaSede} onClose={() => setMostraModale(false)} />}
+        {mostraModale && <ModalePulizie lunedi={lunedi} responsabili={responsabiliPuliziaSede} onClose={onClose} onUpdate={onUpdate} />}
     </>;
 };
 

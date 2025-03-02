@@ -5,25 +5,20 @@ import AperturaIcon from './icons/Apertura';
 import ChiusuraIcon from './icons/Chiusura';
 import { getNomeUtente } from 'src/services/LocalStorage';
 import { postAproIo, postChiudoIo, postNonAproIo, postNonChiudoIo } from 'src/api';
-import useCalendarioStore from 'src/hooks/Calendar';
 
 interface ModaleAttivitaProps {
     responsabiliApertura: string[];
     responsabiliChiusura: string[];
     giorno: DateTime;
     onCancel: () => void;
+    onUpdate: () => void;
 }
 
-const ModaleAttivita: React.FC<ModaleAttivitaProps> = ({ responsabiliApertura, responsabiliChiusura, giorno, onCancel }) => {
+const ModaleAttivita: React.FC<ModaleAttivitaProps> = ({ responsabiliApertura, responsabiliChiusura, giorno, onCancel, onUpdate }) => {
     const [errore, setErrore] = useState<string | null>(null);
-    const refetch = useCalendarioStore(store => store.refetch);
 
     const sonoResponsabileDellaChiusura = useMemo(() => responsabiliChiusura.indexOf(getNomeUtente() || '') !== -1, [responsabiliChiusura]);
     const sonoResponsabileDellaApertura = useMemo(() => responsabiliApertura.indexOf(getNomeUtente() || '') !== -1, [responsabiliApertura]);
-
-    const onUpdate = useCallback(() => {
-        refetch();
-    }, [refetch]);
 
     const post = useCallback(async (fn: () => Promise<ApiResponse>) => {
         try {
