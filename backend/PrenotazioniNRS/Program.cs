@@ -8,6 +8,15 @@ using PrenotazioniNRS.Infrastructure.Persistence.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
+}
+else
+{
+    builder.Configuration.AddJsonFile("appsettings.prod.json", optional: false, reloadOnChange: true);
+}
+
 string connectionString = builder.Configuration.GetValue<string>("Persistence:ConnectionString") ?? throw new ArgumentNullException();
 builder.Services.InizializzaPersistenzaContesto(connectionString);
 
@@ -60,7 +69,6 @@ app.UseWhen(context => !context.Request.Path.StartsWithSegments("/docs"), appBui
 });
 
 app.UsePersistenzaEntityFramework();
-
 
 app.MapControllers().RequireAuthorization();
 
