@@ -18,6 +18,6 @@ RUN rm -rf ./*
 # Copy static assets from builder stage
 COPY --from=build /build .
 
-COPY start_docker.py /start_docker.py
+COPY start.py /start.py
 
-CMD python3 /start_docker.py && nginx -g "daemon off;"
+CMD python3 /start.py /usr/share/nginx/html/env.js && nginx -g "daemon off;"

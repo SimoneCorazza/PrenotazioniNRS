@@ -22,8 +22,8 @@ jobs:
       
       - name: Exportazione variabili d'ambiente
         run: |
-          export VARNAME=${{ variables.REACT_APP_SERVER_URL }}
-          python3 ./frontend/start_docker.py
+          export REACT_APP_SERVER_URL=${{ vars.REACT_APP_SERVER_URL }}
+          python3 ./frontend/start.py ./frontend/public/env.js
 
       - name: Build And Deploy
         id: builddeploy
