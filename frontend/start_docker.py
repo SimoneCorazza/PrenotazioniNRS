@@ -1,6 +1,6 @@
 import os
 
-output_file_path = "/usr/share/nginx/html/env.js"
+output_file_path = "./frontend/start_docker.py/env.js"
 
 string = "window.env = {\n"
 for key, value in os.environ.items():
