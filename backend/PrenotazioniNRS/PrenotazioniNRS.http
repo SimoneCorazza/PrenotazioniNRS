@@ -24,7 +24,7 @@ X-Nome-Utente: Simone3
 
 ###
 
-POST {{host}}/api/v1/AttivitaOrdinaria/Rimuovimi/Apertura/2025-01-21
+POST {{host}}/api/v1/AttivitaOrdinaria/Rimuovimi/Apertura/2025-03-21
 Accept: application/json
 X-Nome-Utente: Simone3
 
