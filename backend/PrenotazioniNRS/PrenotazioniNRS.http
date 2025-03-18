@@ -1,4 +1,4 @@
-@host = http://localhost:5195
+@host = http://localhost:8080
 
 DELETE {{host}}/api/v1/PuliziaSede/Rimuovimi/2025/10
 Accept: application/json
@@ -18,7 +18,7 @@ X-Nome-Utente: Simone3
 
 ###
 
-POST {{host}}/api/v1/AttivitaOrdinaria/Aggiungimi/Chiusura/2025-01-21
+POST {{host}}/api/v1/AttivitaOrdinaria/Aggiungimi/Chiusura/2025-03-18
 Accept: application/json
 X-Nome-Utente: Simone3
 
@@ -39,3 +39,15 @@ X-Nome-Utente: Simone
 GET {{host}}/api/v1/Calendario?from=2025-01-01&to=2025-06-01
 Accept: application/json
 X-Nome-Utente: Simone
+
+###
+
+POST {{host}}/api/v1/AttivitaOrdinaria/ModificaChiusura
+Accept: application/json
+Content-Type: application/json
+X-Nome-Utente: Simone
+
+{
+    "data": "2025-03-21",
+    "stato": 2
+}

@@ -46,6 +46,7 @@
                     x => string.Join("|", x.Select(x => x.ToString())),
                     x => new Responsabili(x.Split("|", StringSplitOptions.RemoveEmptyEntries).Select(x => new Responsabile(x))))
                 .HasMaxLength(500);
+            attivitaOrdinarie.Property(x => x.Stato);
         }
     }
 }

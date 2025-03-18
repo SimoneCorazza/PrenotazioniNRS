@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PrenotazioniNRS.Api.Requests;
 using PrenotazioniNRS.Domain.Sede;
 using PrenotazioniNRS.Domain.Sede.AtttivitaOrdinarie;
 using PrenotazioniNRS.Infrastructure.Persistence.UnitOfWork;
@@ -26,7 +27,7 @@ namespace PrenotazioniNRS.Api
             return await ExecuteAsync(async () =>
             {
                 var valoreADb = await attivitaOrdinariaRepository.Ottieni(giorno);
-                var valore = valoreADb ?? new AttivitaOrdinaria(giorno);
+                var valore = valoreADb ?? new AttivitaOrdinaria(giorno, StatoAttivitaOrdinaria.Aperta);
 
                 if (azione.Equals("apertura", StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -54,7 +55,7 @@ namespace PrenotazioniNRS.Api
             });
         }
 
-        [HttpDelete]
+        [HttpPost]
         [Route("{azione}/{giorno}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse))]
@@ -87,6 +88,29 @@ namespace PrenotazioniNRS.Api
                 }
                 else
                 {
+                    attivitaOrdinariaRepository.Modifica(valore);
+                }
+
+                return Ok(new ApiResponse());
+            });
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse))]
+        public async Task<IActionResult> ModificaChiusura([FromBody] ModificaStatoAttivitaOrdinariaRequest request)
+        {
+            return await ExecuteAsync(async () =>
+            {
+                var valore = await attivitaOrdinariaRepository.Ottieni(request.Data);
+                if (valore is null)
+                {
+                    valore = new AttivitaOrdinaria(request.Data, request.Stato);
+                    attivitaOrdinariaRepository.Aggiungi(valore);
+                }
+                else
+                {
+                    valore.ModificaStato(request.Stato);
                     attivitaOrdinariaRepository.Modifica(valore);
                 }
 
