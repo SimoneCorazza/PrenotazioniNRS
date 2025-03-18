@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PrenotazioniNRS.Domain.Sede.AtttivitaOrdinarie;
+using System.ComponentModel.DataAnnotations;
 
 namespace PrenotazioniNRS.Api.Responses.Calendario
 {
@@ -12,6 +13,12 @@ namespace PrenotazioniNRS.Api.Responses.Calendario
         /// </summary>
         [Required]
         public DateOnly Giorno { get; set; }
+
+        /// <summary>
+        ///     Stato dell'attività
+        /// </summary>
+        [Required]
+        public StatoAttivitaOrdinaria Stato { get; set; }
 
         /// <summary>
         ///     Responsabili dell'apertura della sede

@@ -42,6 +42,7 @@ namespace PrenotazioniNRS.Api
                 ApertureOrdinarie = attivitaOrdinarie.Select(x => new Responses.Calendario.AttivitaOrdinaria
                 {
                     Giorno = x.Giorno,
+                    Stato = x.Stato,
                     ResponsabiliApertura = x.ResponsabiliApertura.Select(x => x.Nome).ToArray(),
                     ResponsabiliChiusura = x.ResponsabiliChiusura.Select(x => x.Nome).ToArray(),
                 }).ToArray(),
