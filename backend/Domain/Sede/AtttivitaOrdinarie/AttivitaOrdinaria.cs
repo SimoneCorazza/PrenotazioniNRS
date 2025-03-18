@@ -93,6 +93,11 @@
 
         private void Valida()
         {
+            if (!Enum.IsDefined(Stato))
+            {
+                throw new DomainException("Valore dello stato non consentito");
+            }
+
             IsGiornoCorretto();
         }
 
