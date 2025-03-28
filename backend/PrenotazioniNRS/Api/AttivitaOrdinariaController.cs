@@ -55,7 +55,7 @@ namespace PrenotazioniNRS.Api
             });
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("{azione}/{giorno}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse))]
@@ -98,7 +98,7 @@ namespace PrenotazioniNRS.Api
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiResponse))]
-        public async Task<IActionResult> ModificaChiusura([FromBody] ModificaStatoAttivitaOrdinariaRequest request)
+        public async Task<IActionResult> ModificaStato([FromBody] ModificaStatoAttivitaOrdinariaRequest request)
         {
             return await ExecuteAsync(async () =>
             {

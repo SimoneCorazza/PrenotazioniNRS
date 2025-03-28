@@ -7,6 +7,7 @@ import PuliziaSede from 'src/api/PuliziaSede';
 import Pulizie from './Pulizie';
 import { message } from 'antd';
 import useCalendarioStore from 'src/hooks/Calendar';
+import StatoAttivitaOrdinaria from 'src/api/StatoAttivitaOrdinaria';
 
 interface SettimanaProps {
     lunedi: DateTime;
@@ -36,6 +37,7 @@ const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, 
 
         return <Giorno
             key={i}
+            stato={a?.stato || StatoAttivitaOrdinaria.Aperta}
             data={d}
             oggi={oggi}
             responsabiliApertura={a?.responsabiliApertura || []}
@@ -59,6 +61,7 @@ const Settimana: React.FC<SettimanaProps> = ({ lunedi, oggi, attivitaOrdinarie, 
         return <ModaleAttivita
             responsabiliApertura={a?.responsabiliApertura || []}
             responsabiliChiusura={a?.responsabiliChiusura || []}
+            stato={a?.stato || StatoAttivitaOrdinaria.Aperta}
             giorno={giornoSelezionato}
             onCancel={onModaleChiusa}
             onUpdate={onUpdate}/>;

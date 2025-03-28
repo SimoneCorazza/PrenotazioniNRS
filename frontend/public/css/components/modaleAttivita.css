@@ -16,3 +16,10 @@
     width: 50%;
     text-align: center;
 }
+
+.modale-attivita-bottone-giorno-apertura {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

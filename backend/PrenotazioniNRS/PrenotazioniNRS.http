@@ -42,12 +42,12 @@ X-Nome-Utente: Simone
 
 ###
 
-POST {{host}}/api/v1/AttivitaOrdinaria/ModificaChiusura
+POST {{host}}/api/v1/AttivitaOrdinaria/ModificaStato
 Accept: application/json
 Content-Type: application/json
 X-Nome-Utente: Simone
 
 {
-    "data": "2025-03-21",
+    "data": "2025-03-18",
     "stato": 2
 }

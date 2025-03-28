@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import axios from 'axios';
 import Calendario from './Calendario';
 import { getNomeUtente } from 'src/services/LocalStorage';
+import StatoAttivitaOrdinaria from './StatoAttivitaOrdinaria';
 
 declare global {
     interface Window {
@@ -17,8 +18,12 @@ instance.interceptors.request.use(
     config => {
         config.headers['X-Nome-Utente'] = getNomeUtente();
         return config;
-      }
-  );
+        }
+);
+
+const formattaData = (d: DateTime): string => {
+    return d.toFormat("yyyy-MM-dd");
+}
 
 /**
  * Ottiene il calendario nel range di date indicate
@@ -37,22 +42,22 @@ export const fetchCalendario = async (from: DateTime, to: DateTime): Promise<Cal
 }
 
 export const postAproIo = async (data: DateTime) : Promise<ApiResponse> =>  {
-    const r = await instance.post<ApiResponse>(`/api/v1/AttivitaOrdinaria/Aggiungimi/Apertura/${data.toFormat("yyyy-MM-dd")}`);
+    const r = await instance.post<ApiResponse>(`/api/v1/AttivitaOrdinaria/Aggiungimi/Apertura/${formattaData(data)}`);
     return r.data;
 }
 
 export const postChiudoIo = async (data: DateTime) : Promise<ApiResponse> =>  {
-    const r =  await instance.post<ApiResponse>(`/api/v1/AttivitaOrdinaria/Aggiungimi/Chiusura/${data.toFormat("yyyy-MM-dd")}`);
+    const r =  await instance.post<ApiResponse>(`/api/v1/AttivitaOrdinaria/Aggiungimi/Chiusura/${formattaData(data)}`);
     return r.data;
 }
 
 export const postNonAproIo = async (data: DateTime) : Promise<ApiResponse> =>  {
-    const r =  await instance.delete<ApiResponse>(`/api/v1/AttivitaOrdinaria/Rimuovimi/Apertura/${data.toFormat("yyyy-MM-dd")}`);
+    const r =  await instance.delete<ApiResponse>(`/api/v1/AttivitaOrdinaria/Rimuovimi/Apertura/${formattaData(data)}`);
     return r.data;
 }
 
 export const postNonChiudoIo = async (data: DateTime) : Promise<ApiResponse> =>  {
-    const r =  await instance.delete<ApiResponse>(`/api/v1/AttivitaOrdinaria/Rimuovimi/Chiusura/${data.toFormat("yyyy-MM-dd")}`);
+    const r =  await instance.delete<ApiResponse>(`/api/v1/AttivitaOrdinaria/Rimuovimi/Chiusura/${formattaData(data)}`);
     return r.data;
 }
 
@@ -63,5 +68,13 @@ export const postNonPuliscoIo = async (numeroSettimana: number, anno: number) : 
 
 export const postPuliscoIo = async (numeroSettimana: number, anno: number) : Promise<ApiResponse> =>  {
     const r =  await instance.post<ApiResponse>(`/api/v1/PuliziaSede/Aggiungimi/${anno}/${numeroSettimana}`);
+    return r.data;
+}
+
+export const postModificaStato = async (data: DateTime, stato: StatoAttivitaOrdinaria) : Promise<ApiResponse> =>  {
+    const r =  await instance.post<ApiResponse>('/api/v1/AttivitaOrdinaria/ModificaStato', {
+        "data": formattaData(data),
+        "stato": stato
+    });
     return r.data;
 }
