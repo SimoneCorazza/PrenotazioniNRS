@@ -7,7 +7,7 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <AssemblyName>PrenotazioniNRS</AssemblyName>
     <RootNamespace>PrenotazioniNRS</RootNamespace>
-	<GenerateDocumentationFile>true</GenerateDocumentationFile> <!-- Per la documentazione delle API tramite SWAGGER -->
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile> <!-- Per la documentazione delle API tramite SWAGGER -->
   </PropertyGroup>
 
   <ItemGroup>
