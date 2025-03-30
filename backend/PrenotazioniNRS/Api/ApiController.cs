@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PrenotazioniNRS.Domain.Sede;
 using PrenotazioniNRS.Domain;
-using PrenotazioniNRS.Infrastructure.Persistence;
 using PrenotazioniNRS.Infrastructure.Persistence.UnitOfWork;
 
 namespace PrenotazioniNRS.Api
 {
+    /// <summary>
+    ///     Controller base per le API
+    /// </summary>
     [ApiController]
     public abstract class ApiController : ControllerBase
     {
