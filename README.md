@@ -21,4 +21,4 @@ Al momento c'è uno spredsheet a questo scopo tuttavia un app web risulterebbe p
 
 ## Licenza
 
-Questo progetto è distribuito sotto la [Licenza MIT](LICENSE).
+Questo progetto è distribuito sotto la [Licenza CC0-1.0](LICENSE).
